@@ -4,7 +4,7 @@ This library provides class WorkloadScoring to calculate workload scoring based 
 Supported features:
 
 - safely storing and reading GCP credentials at .env (Google Cloud Platform)
-- splitting records by categorical features e.g. country, channels and so on
+- grouping records by categorical features e.g. group by column1, column2 etc.
 - managing historical period for calculations e.g. last 28 days
 - workload scoring calculation based on confidence interval
 - approaches to calculate scoring based on machine learning [in progress]
@@ -22,7 +22,7 @@ Using
 -------
 - create account object by passing credentials to create WorkloadScoring instance
 - read BigQuery table by ``read_table`` method passing the necessary columns to split records
-- calculate assignee workload score by ``workload_scoring`` method passing the time intervals and columns for splitting
+- calculate assignee workload score by ``workload_scoring`` method passing the time intervals and columns for grouping
 - write BigQuery table by ``write_table`` method passing the columns to save as your schema supposes
 
 Example
@@ -87,7 +87,7 @@ class WorkloadScoring:
         Parameters
         ----------
         columns_list: list of str, required
-            columns for splitting dataframe e.g. group by column1, column2 etc.
+            columns for grouping records e.g. group by column1, column2 etc.
         num_of_all_days: int, optional, default=28
             period in days that used to calculate score
         num_of_interval_days: int, optional, default=7
@@ -173,23 +173,16 @@ class WorkloadScoring:
         self.out_df = pd.DataFrame(data=data)
 
     def read_table(self, dataset_id, table_id, columns=None):
-        """Class methods are similar to regular functions.
-
-        Note
-        ----
-        Do not include the `self` parameter in the ``Parameters`` section.
+        """Loading table data from BigQuery for workload scoring model
 
         Parameters
         ----------
-        param1
-            The first parameter.
-        param2
-            The second parameter.
-
-        Returns
-        -------
-        bool
-            True if successful, False otherwise.
+        dataset_id: str, required
+            BigQuery dataset_id of dataset that contains tables
+        table_id: str, required
+            BigQuery table_id which use to query data
+        columns: list of str, optional, default=None
+            columns for grouping records e.g. group by column1, column2 etc.
 
         """
         where_statement = []
@@ -220,25 +213,21 @@ class WorkloadScoring:
         )
 
     def write_table(self, dataset_id, table_id, dev_name='default.developer', columns=None):
-        """Class methods are similar to regular functions.
-
-        Note
-        ----
-        Do not include the `self` parameter in the ``Parameters`` section.
+        """Writing scoring data to BigQuery table
 
         Parameters
         ----------
-        param1
-            The first parameter.
-        param2
-            The second parameter.
-
-        Returns
-        -------
-        bool
-            True if successful, False otherwise.
+        dataset_id: str, required
+            BigQuery dataset_id of dataset that contains tables
+        table_id: str, required
+            BigQuery table_id which use to query data
+        dev_name: str, optional, default='default.developer'
+            name.surname of developer who perform calculations
+        columns: list of str, optional, default=None
+            columns to use in resulting table
 
         """
+
         if self.out_df is None:
             return 'calc workload scoring'
 
