@@ -1,0 +1,912 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.8.4" />
+<title>lib API documentation</title>
+<meta name="description" content="Example NumPy style docstrings …" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js" integrity="sha256-eOgo0OtLL4cdq7RdwRUiGKLX9XsIJ7nGhWEKbohmVAQ=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>lib</code></h1>
+</header>
+<section id="section-intro">
+<p>Example NumPy style docstrings.</p>
+<p>This module demonstrates documentation as specified by the <code>NumPy
+Documentation HOWTO</code>_. Docstrings may extend over multiple lines. Sections
+are created with a section header followed by an underline of equal length.</p>
+<h2 id="example">Example</h2>
+<p>Examples can be given using either the <code>Example</code> or <code>Examples</code>
+sections. Sections support any reStructuredText formatting, including
+literal blocks::</p>
+<pre><code>$ python example_numpy.py
+</code></pre>
+<p>Section breaks are created with two blank lines. Section breaks are also
+implicitly created anytime a new section starts. Section bodies <em>may</em> be
+indented:</p>
+<h2 id="notes">Notes</h2>
+<pre><code>This is an example of an indented section. It's like any other section,
+but the body is indented to help it stand out from surrounding text.
+</code></pre>
+<p>If a section is indented, then a section break is created by
+resuming unindented text.</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">&#34;&#34;&#34;Example NumPy style docstrings.
+
+This module demonstrates documentation as specified by the `NumPy
+Documentation HOWTO`_. Docstrings may extend over multiple lines. Sections
+are created with a section header followed by an underline of equal length.
+
+Example
+-------
+Examples can be given using either the ``Example`` or ``Examples``
+sections. Sections support any reStructuredText formatting, including
+literal blocks::
+
+    $ python example_numpy.py
+
+
+Section breaks are created with two blank lines. Section breaks are also
+implicitly created anytime a new section starts. Section bodies *may* be
+indented:
+
+Notes
+-----
+    This is an example of an indented section. It&#39;s like any other section,
+    but the body is indented to help it stand out from surrounding text.
+
+If a section is indented, then a section break is created by
+resuming unindented text.
+
+&#34;&#34;&#34;
+
+from google.oauth2.service_account import Credentials
+
+import pandas_gbq
+
+import numpy as np
+import pandas as pd
+import math as mt
+import datetime as dt
+
+import itertools as it
+
+
+def addition(first_number: int, second_number: float) -&gt; float:
+    &#34;&#34;&#34;This function will perform addition of two numbers.
+    Parameters
+    ----------
+    first_number : int
+        the 1st arg has to be an int
+    second_number : float
+        the 2nd arg has to be an float
+    Returns
+    -------
+    float
+        the result of sum of an int and a float will be a float
+    &#34;&#34;&#34;
+    result: float = first_number + second_number
+    return result
+
+
+class WorkloadScoring:
+    &#34;&#34;&#34;The summary line for a class docstring should fit on one line.
+
+    If the class has public attributes, they may be documented here
+    in an ``Attributes`` section and follow the same formatting as a
+    function&#39;s ``Args`` section. Alternatively, attributes may be documented
+    inline with the attribute&#39;s declaration (see __init__ method below).
+
+    Properties created with the ``@property`` decorator should be documented
+    in the property&#39;s getter method.
+
+    Attributes
+    ----------
+    attr1 : str
+        Description of `attr1`.
+    attr2 : :obj:`int`, optional
+        Description of `attr2`.
+
+    &#34;&#34;&#34;
+
+    def __init__(self, credentials):
+        &#34;&#34;&#34;Example of docstring on the __init__ method.
+
+        The __init__ method may be documented in either the class level
+        docstring, or as a docstring on the __init__ method itself.
+
+        Either form is acceptable, but the two should not be mixed. Choose one
+        convention to document the __init__ method and be consistent with it.
+
+        Note
+        ----
+        Do not include the `self` parameter in the ``Parameters`` section.
+
+        Parameters
+        ----------
+        param1 : str
+            Description of `param1`.
+        param2 : :obj:`list` of :obj:`str`
+            Description of `param2`. Multiple
+            lines are supported.
+        param3 : :obj:`int`, optional
+            Description of `param3`.
+
+        &#34;&#34;&#34;
+        self.raw_df = None
+        self.out_df = None
+
+        self.project_id = credentials[&#39;project_id&#39;]
+
+        self.credentials = Credentials.from_service_account_info(credentials)
+
+    def workload_scoring(self, columns_list, num_of_all_days=28, num_of_interval_days=7, end_date=&#39;2017-04-01&#39;):
+        &#34;&#34;&#34;Class methods are similar to regular functions.
+
+        Note
+        ----
+        Do not include the `self` parameter in the ``Parameters`` section.
+
+        Parameters
+        ----------
+        param1
+            The first parameter.
+        param2
+            The second parameter.
+
+        Returns
+        -------
+        bool
+            True if successful, False otherwise.
+
+        &#34;&#34;&#34;
+        if self.raw_df is None:
+            return &#39;load data&#39;
+
+        data = {
+            &#39;score_value&#39;: [],
+            &#39;count_last_period&#39;: [],
+            &#39;count_sem_calc_period&#39;: [],
+            &#39;count_mean_calc_period&#39;: []
+        }
+
+        col_unique_vals = []
+        for column in columns_list:
+            data[column] = []
+
+            col_unique_vals.append(self.raw_df[column].unique())
+
+        #
+        cartesian_product = list(it.product(*col_unique_vals))
+
+        for values in cartesian_product:
+            # берем срез записей в зависимости от набора значений по категориям
+            df_slice = self.__get_dataframe_slice(columns_list, values)
+
+            # берем конечную дату
+            end_date = dt.datetime.strptime(str(end_date), &#39;%Y-%m-%d&#39;)
+            end_date = end_date.date()
+
+            # берем первую дату
+            fst_cur_date = end_date - dt.timedelta(days=num_of_all_days)
+
+            # берем интервал/смещение
+            delta = dt.timedelta(days=num_of_interval_days)
+
+            # находим конец первого периода
+            snd_cur_date = fst_cur_date + delta
+
+            num_of_intervals = int(num_of_all_days / num_of_interval_days)
+            num_tasks_per_week = []
+
+            for i in range(0, num_of_intervals):
+                # берем записи i интервала
+                df_interval = df_slice[
+                    (df_slice.updated &gt;= str(fst_cur_date)) &amp; (df_slice.updated &lt;= str(snd_cur_date))]
+
+                # делаем смещения
+                fst_cur_date = fst_cur_date + delta
+                snd_cur_date = snd_cur_date + delta
+
+                if i != (num_of_intervals - 1):
+                    num_of_tasks = len(np.unique(df_interval[&#39;id&#39;]))
+                    num_tasks_per_week.append(num_of_tasks)  # history number of tasks
+                else:
+                    num_tasks_per_current_week = len(np.unique(df_interval[&#39;id&#39;]))  # currently number of tasks
+
+            avg_num_of_task_per_week = round(np.mean(num_tasks_per_week), 2)
+
+            # squared deviations
+            x_values = []
+            for num in num_tasks_per_week:
+                x = round((num - avg_num_of_task_per_week) ** 2, 2)
+                x_values.append(x)
+
+            # data sampling statistics
+            x_sum = round(sum(x_values), 2)  # sum of squared deviations
+            dispersion = round(x_sum / (num_of_intervals - 1), 2)  # dispersion
+            std = round(mt.sqrt(dispersion), 2)  # standart deviation for sample
+            ste = round(std / mt.sqrt(num_of_intervals), 2)  # standart error for sample
+
+            # confidence interval
+            left_border = int(avg_num_of_task_per_week - ste)
+            right_border = int(avg_num_of_task_per_week + ste)
+
+            # workload scoring for status
+            score_value = self.__calc_workload_score(left_border, right_border, num_tasks_per_current_week)
+
+            data[&#39;score_value&#39;].append(score_value)
+            data[&#39;count_last_period&#39;].append(num_tasks_per_current_week)
+            data[&#39;count_sem_calc_period&#39;].append(ste)
+            data[&#39;count_mean_calc_period&#39;].append(avg_num_of_task_per_week)
+
+            for i, column in enumerate(columns_list):
+                data[column].append(values[i])
+
+        self.out_df = pd.DataFrame(data=data)
+
+    def load_data(self, dataset_id, table_id, columns=None):
+        where_statement = []
+        from_statement = f&#34;from `{dataset_id}.{table_id}`&#34;
+        select_statement = &#34;select id, date(cast(created_at as datetime)) as created, &#34; \
+                           &#34;date(cast(updated_at as datetime)) as updated&#34;
+
+        if columns is not None:
+            select_statement = select_statement + &#34;, &#34; + &#34;, &#34;.join(columns.keys())
+
+            for c, v in columns.items():
+                if len(v) &gt; 0:
+                    val_enum = &#34;, &#34;.join([f&#34;&#39;{x}&#39;&#34; for x in v])
+                    where_statement.append(f&#39;{c} in ({val_enum})&#39;)
+
+        where_statement = &#34;where &#34; + &#34;, &#34;.join(where_statement) if len(where_statement) &gt; 0 else &#34;&#34;
+
+        bigquery_sql = &#34; &#34;.join([
+            select_statement,
+            from_statement,
+            where_statement,
+            &#34;ORDER BY updated&#34;
+        ])
+
+        self.raw_df = pandas_gbq.read_gbq(
+            bigquery_sql,
+            project_id=self.project_id
+        )
+
+    def insert_data(self, dataset_id, table_id, dev_name=&#39;default.developer&#39;, columns=None):
+        if self.out_df is None:
+            return &#39;calc workload scoring&#39;
+
+        destination_table = f&#34;{dataset_id}.{table_id}&#34;
+
+        insert_df = pd.DataFrame()
+
+        if columns is None:
+            columns = self.out_df.columns
+
+        column2type = dict(pandas_gbq.read_gbq(
+            f&#34;select {&#39;, &#39;.join(columns)} from `{destination_table}` limit 0&#34;,
+            project_id=self.project_id
+        ).dtypes)
+
+        for col in columns:
+            insert_df[col] = self.out_df[col].astype(column2type[col])
+
+        insert_df[&#39;developer&#39;] = dev_name
+        insert_df[&#39;developer&#39;] = insert_df[&#39;developer&#39;].astype(&#39;str&#39;)
+
+        pandas_gbq.to_gbq(
+            insert_df,
+            project_id=self.project_id,
+            destination_table=destination_table,
+            if_exists=&#39;append&#39;
+        )
+
+    def __get_dataframe_slice(self, columns, values):
+        mask = True
+
+        for i, col in enumerate(columns):
+            mask = mask &amp; (self.raw_df[col] == values[i])
+
+        return self.raw_df[mask]
+
+    @staticmethod
+    def __calc_workload_score(left_board, right_board, current_num_of_tasks):
+        if (left_board == 0) &amp; (current_num_of_tasks == 0) &amp; (right_board == 0):
+            score = 0
+        elif (current_num_of_tasks &gt;= 0) &amp; (current_num_of_tasks &lt; left_board):
+            score = 0
+        elif (current_num_of_tasks &gt;= left_board) &amp; (current_num_of_tasks &lt;= right_board):
+            score = 1
+        else:
+            score = 2
+
+        return score</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="lib.addition"><code class="name flex">
+<span>def <span class="ident">addition</span></span>(<span>first_number: int, second_number: float) ‑> float</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This function will perform addition of two numbers.
+Parameters</p>
+<hr>
+<dl>
+<dt><strong><code>first_number</code></strong> :&ensp;<code>int</code></dt>
+<dd>the 1st arg has to be an int</dd>
+<dt><strong><code>second_number</code></strong> :&ensp;<code>float</code></dt>
+<dd>the 2nd arg has to be an float</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>float</code></dt>
+<dd>the result of sum of an int and a float will be a float</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def addition(first_number: int, second_number: float) -&gt; float:
+    &#34;&#34;&#34;This function will perform addition of two numbers.
+    Parameters
+    ----------
+    first_number : int
+        the 1st arg has to be an int
+    second_number : float
+        the 2nd arg has to be an float
+    Returns
+    -------
+    float
+        the result of sum of an int and a float will be a float
+    &#34;&#34;&#34;
+    result: float = first_number + second_number
+    return result</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="lib.WorkloadScoring"><code class="flex name class">
+<span>class <span class="ident">WorkloadScoring</span></span>
+<span>(</span><span>credentials)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The summary line for a class docstring should fit on one line.</p>
+<p>If the class has public attributes, they may be documented here
+in an <code>Attributes</code> section and follow the same formatting as a
+function's <code>Args</code> section. Alternatively, attributes may be documented
+inline with the attribute's declaration (see <strong>init</strong> method below).</p>
+<p>Properties created with the <code>@property</code> decorator should be documented
+in the property's getter method.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>attr1</code></strong> :&ensp;<code>str</code></dt>
+<dd>Description of <code>attr1</code>.</dd>
+<dt><strong><code>attr2</code></strong> :&ensp;<code>:obj:</code>int``, optional</dt>
+<dd>Description of <code>attr2</code>.</dd>
+</dl>
+<p>Example of docstring on the <strong>init</strong> method.</p>
+<p>The <strong>init</strong> method may be documented in either the class level
+docstring, or as a docstring on the <strong>init</strong> method itself.</p>
+<p>Either form is acceptable, but the two should not be mixed. Choose one
+convention to document the <strong>init</strong> method and be consistent with it.</p>
+<h2 id="note">Note</h2>
+<p>Do not include the <code>self</code> parameter in the <code>Parameters</code> section.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>param1</code></strong> :&ensp;<code>str</code></dt>
+<dd>Description of <code>param1</code>.</dd>
+<dt><strong><code>param2</code></strong> :&ensp;<code>:obj:</code>list<code>of `:obj:`str</code></dt>
+<dd>Description of <code>param2</code>. Multiple
+lines are supported.</dd>
+<dt><strong><code>param3</code></strong> :&ensp;<code>:obj:</code>int``, optional</dt>
+<dd>Description of <code>param3</code>.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class WorkloadScoring:
+    &#34;&#34;&#34;The summary line for a class docstring should fit on one line.
+
+    If the class has public attributes, they may be documented here
+    in an ``Attributes`` section and follow the same formatting as a
+    function&#39;s ``Args`` section. Alternatively, attributes may be documented
+    inline with the attribute&#39;s declaration (see __init__ method below).
+
+    Properties created with the ``@property`` decorator should be documented
+    in the property&#39;s getter method.
+
+    Attributes
+    ----------
+    attr1 : str
+        Description of `attr1`.
+    attr2 : :obj:`int`, optional
+        Description of `attr2`.
+
+    &#34;&#34;&#34;
+
+    def __init__(self, credentials):
+        &#34;&#34;&#34;Example of docstring on the __init__ method.
+
+        The __init__ method may be documented in either the class level
+        docstring, or as a docstring on the __init__ method itself.
+
+        Either form is acceptable, but the two should not be mixed. Choose one
+        convention to document the __init__ method and be consistent with it.
+
+        Note
+        ----
+        Do not include the `self` parameter in the ``Parameters`` section.
+
+        Parameters
+        ----------
+        param1 : str
+            Description of `param1`.
+        param2 : :obj:`list` of :obj:`str`
+            Description of `param2`. Multiple
+            lines are supported.
+        param3 : :obj:`int`, optional
+            Description of `param3`.
+
+        &#34;&#34;&#34;
+        self.raw_df = None
+        self.out_df = None
+
+        self.project_id = credentials[&#39;project_id&#39;]
+
+        self.credentials = Credentials.from_service_account_info(credentials)
+
+    def workload_scoring(self, columns_list, num_of_all_days=28, num_of_interval_days=7, end_date=&#39;2017-04-01&#39;):
+        &#34;&#34;&#34;Class methods are similar to regular functions.
+
+        Note
+        ----
+        Do not include the `self` parameter in the ``Parameters`` section.
+
+        Parameters
+        ----------
+        param1
+            The first parameter.
+        param2
+            The second parameter.
+
+        Returns
+        -------
+        bool
+            True if successful, False otherwise.
+
+        &#34;&#34;&#34;
+        if self.raw_df is None:
+            return &#39;load data&#39;
+
+        data = {
+            &#39;score_value&#39;: [],
+            &#39;count_last_period&#39;: [],
+            &#39;count_sem_calc_period&#39;: [],
+            &#39;count_mean_calc_period&#39;: []
+        }
+
+        col_unique_vals = []
+        for column in columns_list:
+            data[column] = []
+
+            col_unique_vals.append(self.raw_df[column].unique())
+
+        #
+        cartesian_product = list(it.product(*col_unique_vals))
+
+        for values in cartesian_product:
+            # берем срез записей в зависимости от набора значений по категориям
+            df_slice = self.__get_dataframe_slice(columns_list, values)
+
+            # берем конечную дату
+            end_date = dt.datetime.strptime(str(end_date), &#39;%Y-%m-%d&#39;)
+            end_date = end_date.date()
+
+            # берем первую дату
+            fst_cur_date = end_date - dt.timedelta(days=num_of_all_days)
+
+            # берем интервал/смещение
+            delta = dt.timedelta(days=num_of_interval_days)
+
+            # находим конец первого периода
+            snd_cur_date = fst_cur_date + delta
+
+            num_of_intervals = int(num_of_all_days / num_of_interval_days)
+            num_tasks_per_week = []
+
+            for i in range(0, num_of_intervals):
+                # берем записи i интервала
+                df_interval = df_slice[
+                    (df_slice.updated &gt;= str(fst_cur_date)) &amp; (df_slice.updated &lt;= str(snd_cur_date))]
+
+                # делаем смещения
+                fst_cur_date = fst_cur_date + delta
+                snd_cur_date = snd_cur_date + delta
+
+                if i != (num_of_intervals - 1):
+                    num_of_tasks = len(np.unique(df_interval[&#39;id&#39;]))
+                    num_tasks_per_week.append(num_of_tasks)  # history number of tasks
+                else:
+                    num_tasks_per_current_week = len(np.unique(df_interval[&#39;id&#39;]))  # currently number of tasks
+
+            avg_num_of_task_per_week = round(np.mean(num_tasks_per_week), 2)
+
+            # squared deviations
+            x_values = []
+            for num in num_tasks_per_week:
+                x = round((num - avg_num_of_task_per_week) ** 2, 2)
+                x_values.append(x)
+
+            # data sampling statistics
+            x_sum = round(sum(x_values), 2)  # sum of squared deviations
+            dispersion = round(x_sum / (num_of_intervals - 1), 2)  # dispersion
+            std = round(mt.sqrt(dispersion), 2)  # standart deviation for sample
+            ste = round(std / mt.sqrt(num_of_intervals), 2)  # standart error for sample
+
+            # confidence interval
+            left_border = int(avg_num_of_task_per_week - ste)
+            right_border = int(avg_num_of_task_per_week + ste)
+
+            # workload scoring for status
+            score_value = self.__calc_workload_score(left_border, right_border, num_tasks_per_current_week)
+
+            data[&#39;score_value&#39;].append(score_value)
+            data[&#39;count_last_period&#39;].append(num_tasks_per_current_week)
+            data[&#39;count_sem_calc_period&#39;].append(ste)
+            data[&#39;count_mean_calc_period&#39;].append(avg_num_of_task_per_week)
+
+            for i, column in enumerate(columns_list):
+                data[column].append(values[i])
+
+        self.out_df = pd.DataFrame(data=data)
+
+    def load_data(self, dataset_id, table_id, columns=None):
+        where_statement = []
+        from_statement = f&#34;from `{dataset_id}.{table_id}`&#34;
+        select_statement = &#34;select id, date(cast(created_at as datetime)) as created, &#34; \
+                           &#34;date(cast(updated_at as datetime)) as updated&#34;
+
+        if columns is not None:
+            select_statement = select_statement + &#34;, &#34; + &#34;, &#34;.join(columns.keys())
+
+            for c, v in columns.items():
+                if len(v) &gt; 0:
+                    val_enum = &#34;, &#34;.join([f&#34;&#39;{x}&#39;&#34; for x in v])
+                    where_statement.append(f&#39;{c} in ({val_enum})&#39;)
+
+        where_statement = &#34;where &#34; + &#34;, &#34;.join(where_statement) if len(where_statement) &gt; 0 else &#34;&#34;
+
+        bigquery_sql = &#34; &#34;.join([
+            select_statement,
+            from_statement,
+            where_statement,
+            &#34;ORDER BY updated&#34;
+        ])
+
+        self.raw_df = pandas_gbq.read_gbq(
+            bigquery_sql,
+            project_id=self.project_id
+        )
+
+    def insert_data(self, dataset_id, table_id, dev_name=&#39;default.developer&#39;, columns=None):
+        if self.out_df is None:
+            return &#39;calc workload scoring&#39;
+
+        destination_table = f&#34;{dataset_id}.{table_id}&#34;
+
+        insert_df = pd.DataFrame()
+
+        if columns is None:
+            columns = self.out_df.columns
+
+        column2type = dict(pandas_gbq.read_gbq(
+            f&#34;select {&#39;, &#39;.join(columns)} from `{destination_table}` limit 0&#34;,
+            project_id=self.project_id
+        ).dtypes)
+
+        for col in columns:
+            insert_df[col] = self.out_df[col].astype(column2type[col])
+
+        insert_df[&#39;developer&#39;] = dev_name
+        insert_df[&#39;developer&#39;] = insert_df[&#39;developer&#39;].astype(&#39;str&#39;)
+
+        pandas_gbq.to_gbq(
+            insert_df,
+            project_id=self.project_id,
+            destination_table=destination_table,
+            if_exists=&#39;append&#39;
+        )
+
+    def __get_dataframe_slice(self, columns, values):
+        mask = True
+
+        for i, col in enumerate(columns):
+            mask = mask &amp; (self.raw_df[col] == values[i])
+
+        return self.raw_df[mask]
+
+    @staticmethod
+    def __calc_workload_score(left_board, right_board, current_num_of_tasks):
+        if (left_board == 0) &amp; (current_num_of_tasks == 0) &amp; (right_board == 0):
+            score = 0
+        elif (current_num_of_tasks &gt;= 0) &amp; (current_num_of_tasks &lt; left_board):
+            score = 0
+        elif (current_num_of_tasks &gt;= left_board) &amp; (current_num_of_tasks &lt;= right_board):
+            score = 1
+        else:
+            score = 2
+
+        return score</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="lib.WorkloadScoring.insert_data"><code class="name flex">
+<span>def <span class="ident">insert_data</span></span>(<span>self, dataset_id, table_id, dev_name='default.developer', columns=None)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def insert_data(self, dataset_id, table_id, dev_name=&#39;default.developer&#39;, columns=None):
+    if self.out_df is None:
+        return &#39;calc workload scoring&#39;
+
+    destination_table = f&#34;{dataset_id}.{table_id}&#34;
+
+    insert_df = pd.DataFrame()
+
+    if columns is None:
+        columns = self.out_df.columns
+
+    column2type = dict(pandas_gbq.read_gbq(
+        f&#34;select {&#39;, &#39;.join(columns)} from `{destination_table}` limit 0&#34;,
+        project_id=self.project_id
+    ).dtypes)
+
+    for col in columns:
+        insert_df[col] = self.out_df[col].astype(column2type[col])
+
+    insert_df[&#39;developer&#39;] = dev_name
+    insert_df[&#39;developer&#39;] = insert_df[&#39;developer&#39;].astype(&#39;str&#39;)
+
+    pandas_gbq.to_gbq(
+        insert_df,
+        project_id=self.project_id,
+        destination_table=destination_table,
+        if_exists=&#39;append&#39;
+    )</code></pre>
+</details>
+</dd>
+<dt id="lib.WorkloadScoring.load_data"><code class="name flex">
+<span>def <span class="ident">load_data</span></span>(<span>self, dataset_id, table_id, columns=None)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def load_data(self, dataset_id, table_id, columns=None):
+    where_statement = []
+    from_statement = f&#34;from `{dataset_id}.{table_id}`&#34;
+    select_statement = &#34;select id, date(cast(created_at as datetime)) as created, &#34; \
+                       &#34;date(cast(updated_at as datetime)) as updated&#34;
+
+    if columns is not None:
+        select_statement = select_statement + &#34;, &#34; + &#34;, &#34;.join(columns.keys())
+
+        for c, v in columns.items():
+            if len(v) &gt; 0:
+                val_enum = &#34;, &#34;.join([f&#34;&#39;{x}&#39;&#34; for x in v])
+                where_statement.append(f&#39;{c} in ({val_enum})&#39;)
+
+    where_statement = &#34;where &#34; + &#34;, &#34;.join(where_statement) if len(where_statement) &gt; 0 else &#34;&#34;
+
+    bigquery_sql = &#34; &#34;.join([
+        select_statement,
+        from_statement,
+        where_statement,
+        &#34;ORDER BY updated&#34;
+    ])
+
+    self.raw_df = pandas_gbq.read_gbq(
+        bigquery_sql,
+        project_id=self.project_id
+    )</code></pre>
+</details>
+</dd>
+<dt id="lib.WorkloadScoring.workload_scoring"><code class="name flex">
+<span>def <span class="ident">workload_scoring</span></span>(<span>self, columns_list, num_of_all_days=28, num_of_interval_days=7, end_date='2017-04-01')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Class methods are similar to regular functions.</p>
+<h2 id="note">Note</h2>
+<p>Do not include the <code>self</code> parameter in the <code>Parameters</code> section.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>param1</code></strong></dt>
+<dd>The first parameter.</dd>
+<dt><strong><code>param2</code></strong></dt>
+<dd>The second parameter.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>bool</code></dt>
+<dd>True if successful, False otherwise.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def workload_scoring(self, columns_list, num_of_all_days=28, num_of_interval_days=7, end_date=&#39;2017-04-01&#39;):
+    &#34;&#34;&#34;Class methods are similar to regular functions.
+
+    Note
+    ----
+    Do not include the `self` parameter in the ``Parameters`` section.
+
+    Parameters
+    ----------
+    param1
+        The first parameter.
+    param2
+        The second parameter.
+
+    Returns
+    -------
+    bool
+        True if successful, False otherwise.
+
+    &#34;&#34;&#34;
+    if self.raw_df is None:
+        return &#39;load data&#39;
+
+    data = {
+        &#39;score_value&#39;: [],
+        &#39;count_last_period&#39;: [],
+        &#39;count_sem_calc_period&#39;: [],
+        &#39;count_mean_calc_period&#39;: []
+    }
+
+    col_unique_vals = []
+    for column in columns_list:
+        data[column] = []
+
+        col_unique_vals.append(self.raw_df[column].unique())
+
+    #
+    cartesian_product = list(it.product(*col_unique_vals))
+
+    for values in cartesian_product:
+        # берем срез записей в зависимости от набора значений по категориям
+        df_slice = self.__get_dataframe_slice(columns_list, values)
+
+        # берем конечную дату
+        end_date = dt.datetime.strptime(str(end_date), &#39;%Y-%m-%d&#39;)
+        end_date = end_date.date()
+
+        # берем первую дату
+        fst_cur_date = end_date - dt.timedelta(days=num_of_all_days)
+
+        # берем интервал/смещение
+        delta = dt.timedelta(days=num_of_interval_days)
+
+        # находим конец первого периода
+        snd_cur_date = fst_cur_date + delta
+
+        num_of_intervals = int(num_of_all_days / num_of_interval_days)
+        num_tasks_per_week = []
+
+        for i in range(0, num_of_intervals):
+            # берем записи i интервала
+            df_interval = df_slice[
+                (df_slice.updated &gt;= str(fst_cur_date)) &amp; (df_slice.updated &lt;= str(snd_cur_date))]
+
+            # делаем смещения
+            fst_cur_date = fst_cur_date + delta
+            snd_cur_date = snd_cur_date + delta
+
+            if i != (num_of_intervals - 1):
+                num_of_tasks = len(np.unique(df_interval[&#39;id&#39;]))
+                num_tasks_per_week.append(num_of_tasks)  # history number of tasks
+            else:
+                num_tasks_per_current_week = len(np.unique(df_interval[&#39;id&#39;]))  # currently number of tasks
+
+        avg_num_of_task_per_week = round(np.mean(num_tasks_per_week), 2)
+
+        # squared deviations
+        x_values = []
+        for num in num_tasks_per_week:
+            x = round((num - avg_num_of_task_per_week) ** 2, 2)
+            x_values.append(x)
+
+        # data sampling statistics
+        x_sum = round(sum(x_values), 2)  # sum of squared deviations
+        dispersion = round(x_sum / (num_of_intervals - 1), 2)  # dispersion
+        std = round(mt.sqrt(dispersion), 2)  # standart deviation for sample
+        ste = round(std / mt.sqrt(num_of_intervals), 2)  # standart error for sample
+
+        # confidence interval
+        left_border = int(avg_num_of_task_per_week - ste)
+        right_border = int(avg_num_of_task_per_week + ste)
+
+        # workload scoring for status
+        score_value = self.__calc_workload_score(left_border, right_border, num_tasks_per_current_week)
+
+        data[&#39;score_value&#39;].append(score_value)
+        data[&#39;count_last_period&#39;].append(num_tasks_per_current_week)
+        data[&#39;count_sem_calc_period&#39;].append(ste)
+        data[&#39;count_mean_calc_period&#39;].append(avg_num_of_task_per_week)
+
+        for i, column in enumerate(columns_list):
+            data[column].append(values[i])
+
+    self.out_df = pd.DataFrame(data=data)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul>
+<li><a href="#example">Example</a></li>
+<li><a href="#notes">Notes</a></li>
+</ul>
+</div>
+<ul id="index">
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="lib.addition" href="#lib.addition">addition</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="lib.WorkloadScoring" href="#lib.WorkloadScoring">WorkloadScoring</a></code></h4>
+<ul class="">
+<li><code><a title="lib.WorkloadScoring.insert_data" href="#lib.WorkloadScoring.insert_data">insert_data</a></code></li>
+<li><code><a title="lib.WorkloadScoring.load_data" href="#lib.WorkloadScoring.load_data">load_data</a></code></li>
+<li><code><a title="lib.WorkloadScoring.workload_scoring" href="#lib.WorkloadScoring.workload_scoring">workload_scoring</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.4</a>.</p>
+</footer>
+</body>
+</html>

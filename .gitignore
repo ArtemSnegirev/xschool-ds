@@ -7,3 +7,5 @@ catboost_info
 
 lectures
 datasets
+
+__pycache__

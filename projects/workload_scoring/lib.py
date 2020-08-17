@@ -1,3 +1,32 @@
+"""Example NumPy style docstrings.
+
+This module demonstrates documentation as specified by the `NumPy
+Documentation HOWTO`_. Docstrings may extend over multiple lines. Sections
+are created with a section header followed by an underline of equal length.
+
+Example
+-------
+Examples can be given using either the ``Example`` or ``Examples``
+sections. Sections support any reStructuredText formatting, including
+literal blocks::
+
+    $ python example_numpy.py
+
+
+Section breaks are created with two blank lines. Section breaks are also
+implicitly created anytime a new section starts. Section bodies *may* be
+indented:
+
+Notes
+-----
+    This is an example of an indented section. It's like any other section,
+    but the body is indented to help it stand out from surrounding text.
+
+If a section is indented, then a section break is created by
+resuming unindented text.
+
+"""
+
 from google.oauth2.service_account import Credentials
 
 import pandas_gbq
@@ -10,13 +39,67 @@ import datetime as dt
 import itertools as it
 
 
-class WorkloadScoring:
+def addition(first_number: int, second_number: float) -> float:
+    """This function will perform addition of two numbers.
+    Parameters
+    ----------
+    first_number : int
+        the 1st arg has to be an int
+    second_number : float
+        the 2nd arg has to be an float
+    Returns
+    -------
+    float
+        the result of sum of an int and a float will be a float
     """
+    result: float = first_number + second_number
+    return result
+
+
+class WorkloadScoring:
+    """The summary line for a class docstring should fit on one line.
+
+    If the class has public attributes, they may be documented here
+    in an ``Attributes`` section and follow the same formatting as a
+    function's ``Args`` section. Alternatively, attributes may be documented
+    inline with the attribute's declaration (see __init__ method below).
+
+    Properties created with the ``@property`` decorator should be documented
+    in the property's getter method.
+
+    Attributes
+    ----------
+    attr1 : str
+        Description of `attr1`.
+    attr2 : :obj:`int`, optional
+        Description of `attr2`.
 
     """
 
     def __init__(self, credentials):
+        """Example of docstring on the __init__ method.
 
+        The __init__ method may be documented in either the class level
+        docstring, or as a docstring on the __init__ method itself.
+
+        Either form is acceptable, but the two should not be mixed. Choose one
+        convention to document the __init__ method and be consistent with it.
+
+        Note
+        ----
+        Do not include the `self` parameter in the ``Parameters`` section.
+
+        Parameters
+        ----------
+        param1 : str
+            Description of `param1`.
+        param2 : :obj:`list` of :obj:`str`
+            Description of `param2`. Multiple
+            lines are supported.
+        param3 : :obj:`int`, optional
+            Description of `param3`.
+
+        """
         self.raw_df = None
         self.out_df = None
 
@@ -25,6 +108,25 @@ class WorkloadScoring:
         self.credentials = Credentials.from_service_account_info(credentials)
 
     def workload_scoring(self, columns_list, num_of_all_days=28, num_of_interval_days=7, end_date='2017-04-01'):
+        """Class methods are similar to regular functions.
+
+        Note
+        ----
+        Do not include the `self` parameter in the ``Parameters`` section.
+
+        Parameters
+        ----------
+        param1
+            The first parameter.
+        param2
+            The second parameter.
+
+        Returns
+        -------
+        bool
+            True if successful, False otherwise.
+
+        """
         if self.raw_df is None:
             return 'load data'
 
