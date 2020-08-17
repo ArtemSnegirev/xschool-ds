@@ -1,29 +1,34 @@
-"""Example NumPy style docstrings.
+"""Workload scoring library
 
-This module demonstrates documentation as specified by the `NumPy
-Documentation HOWTO`_. Docstrings may extend over multiple lines. Sections
-are created with a section header followed by an underline of equal length.
+This library provides class WorkloadScoring to calculate workload scoring based on BigQuery.
 
-Example
--------
-Examples can be given using either the ``Example`` or ``Examples``
-sections. Sections support any reStructuredText formatting, including
-literal blocks::
-
-    $ python example_numpy.py
-
-
-Section breaks are created with two blank lines. Section breaks are also
-implicitly created anytime a new section starts. Section bodies *may* be
-indented:
+Supported features:
+- safely storing and reading GCP credentials at .env (Google Cloud Platform)
+- splitting records by categorical features e.g. country, channels and so on
+- managing historical period for calculations e.g. last 28 days
+- workload scoring calculation based on confidence interval
+- approaches to calculate scoring based on machine learning [in progress]
 
 Notes
 -----
-    This is an example of an indented section. It's like any other section,
-    but the body is indented to help it stand out from surrounding text.
+    [!] Make sure you have **credentials** to work with GCP.
+    [!] Library uses **google-auth** to work with credentials and **pandas-gbq**.
+    [!] Library uses **dotenv** to safely store security-sensitive data.
 
-If a section is indented, then a section break is created by
-resuming unindented text.
+Using
+-------
+    1) create account object by passing credentials to create WorkloadScoring instance
+    2) read BigQuery table by **read_table** method passing the necessary columns to split records
+    3) calculate assignee workload score by **workload_scoring** method passing the time intervals and columns for splitting
+    4) write BigQuery table by **write_table** method passing the columns to save as your schema supposes
+
+Example
+-------
+    [!] make sure you setup your own credentials in .env in the root of repo.
+
+    See examples in **examples.py**
+
+    $ python examples.py
 
 """
 
@@ -37,23 +42,6 @@ import math as mt
 import datetime as dt
 
 import itertools as it
-
-
-def addition(first_number: int, second_number: float) -> float:
-    """This function will perform addition of two numbers.
-    Parameters
-    ----------
-    first_number : int
-        the 1st arg has to be an int
-    second_number : float
-        the 2nd arg has to be an float
-    Returns
-    -------
-    float
-        the result of sum of an int and a float will be a float
-    """
-    result: float = first_number + second_number
-    return result
 
 
 class WorkloadScoring:
@@ -127,6 +115,7 @@ class WorkloadScoring:
             True if successful, False otherwise.
 
         """
+
         if self.raw_df is None:
             return 'load data'
 
@@ -212,7 +201,26 @@ class WorkloadScoring:
 
         self.out_df = pd.DataFrame(data=data)
 
-    def load_data(self, dataset_id, table_id, columns=None):
+    def read_table(self, dataset_id, table_id, columns=None):
+        """Class methods are similar to regular functions.
+
+        Note
+        ----
+        Do not include the `self` parameter in the ``Parameters`` section.
+
+        Parameters
+        ----------
+        param1
+            The first parameter.
+        param2
+            The second parameter.
+
+        Returns
+        -------
+        bool
+            True if successful, False otherwise.
+
+        """
         where_statement = []
         from_statement = f"from `{dataset_id}.{table_id}`"
         select_statement = "select id, date(cast(created_at as datetime)) as created, " \
@@ -240,7 +248,26 @@ class WorkloadScoring:
             project_id=self.project_id
         )
 
-    def insert_data(self, dataset_id, table_id, dev_name='default.developer', columns=None):
+    def write_table(self, dataset_id, table_id, dev_name='default.developer', columns=None):
+        """Class methods are similar to regular functions.
+
+        Note
+        ----
+        Do not include the `self` parameter in the ``Parameters`` section.
+
+        Parameters
+        ----------
+        param1
+            The first parameter.
+        param2
+            The second parameter.
+
+        Returns
+        -------
+        bool
+            True if successful, False otherwise.
+
+        """
         if self.out_df is None:
             return 'calc workload scoring'
 

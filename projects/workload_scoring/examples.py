@@ -23,7 +23,7 @@ if __name__ == '__main__':
     }
 
     # load dataframe with specify dataset and table
-    ws.load_data(dataset_id, read_table_id, table_columns)
+    ws.read_table(dataset_id, read_table_id, table_columns)
 
     # calculate workload score in terms of columns and period
     ws.workload_scoring(
@@ -34,7 +34,7 @@ if __name__ == '__main__':
     )
 
     # save result to bigquery
-    ws.insert_data(dataset_id, write_table_id, developer_name)
+    ws.write_table(dataset_id, write_table_id, developer_name)
 
     # -----------------------------------#
 
@@ -52,7 +52,7 @@ if __name__ == '__main__':
         end_date='2017-04-01'
     )
 
-    ws.insert_data(
+    ws.write_table(
         dataset_id,
         write_table_id,
         developer_name,
@@ -72,7 +72,7 @@ if __name__ == '__main__':
         'status': ['closed', 'solved'],
     }
 
-    ws.load_data(dataset_id, read_table_id, table_columns)
+    ws.read_table(dataset_id, read_table_id, table_columns)
 
     ws.workload_scoring(
         columns_list=list(table_columns.keys()),
@@ -81,4 +81,4 @@ if __name__ == '__main__':
         end_date='2017-04-01'
     )
 
-    ws.insert_data(dataset_id, write_table_id, developer_name)
+    ws.write_table(dataset_id, write_table_id, developer_name)
