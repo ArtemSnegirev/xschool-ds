@@ -344,6 +344,32 @@ class WorkloadScoring:
         columns: list of str, optional, default=None
             columns to use in resulting table
 
+        Notes
+        ----------
+
+        Example
+
+        Input parameters:
+
+        - dataset_id = &#39;dataset&#39;
+        - table_id = &#39;table&#39;
+        - dev_name = &#39;artem.snegirev&#39;
+        - columns = [&#39;assignee_id, &#39;score_value&#39;]
+
+        Suppose instance has next out_df:
+
+            assignee_id     country     score_value
+            1               russia      1
+            1               usa         0
+            2               usa         1
+
+        Country is not in columns when possible output:
+
+            assignee_id     score_value
+            1               1
+            1               0
+            2               1
+
         &#34;&#34;&#34;
 
         if self.out_df is None:
@@ -665,6 +691,32 @@ class WorkloadScoring:
             name.surname of developer who perform calculations
         columns: list of str, optional, default=None
             columns to use in resulting table
+
+        Notes
+        ----------
+
+        Example
+
+        Input parameters:
+
+        - dataset_id = &#39;dataset&#39;
+        - table_id = &#39;table&#39;
+        - dev_name = &#39;artem.snegirev&#39;
+        - columns = [&#39;assignee_id, &#39;score_value&#39;]
+
+        Suppose instance has next out_df:
+
+            assignee_id     country     score_value
+            1               russia      1
+            1               usa         0
+            2               usa         1
+
+        Country is not in columns when possible output:
+
+            assignee_id     score_value
+            1               1
+            1               0
+            2               1
 
         &#34;&#34;&#34;
 
@@ -1013,7 +1065,28 @@ So we add assignee_id to BASE_SELECT and got:</p>
 <dd>name.surname of developer who perform calculations</dd>
 <dt><strong><code>columns</code></strong> :&ensp;<code>list</code> of <code>str</code>, optional, default=<code>None</code></dt>
 <dd>columns to use in resulting table</dd>
-</dl></div>
+</dl>
+<h2 id="notes">Notes</h2>
+<p>Example</p>
+<p>Input parameters:</p>
+<ul>
+<li>dataset_id = 'dataset'</li>
+<li>table_id = 'table'</li>
+<li>dev_name = 'artem.snegirev'</li>
+<li>columns = ['assignee_id, 'score_value']</li>
+</ul>
+<p>Suppose instance has next out_df:</p>
+<pre><code>assignee_id     country     score_value
+1               russia      1
+1               usa         0
+2               usa         1
+</code></pre>
+<p>Country is not in columns when possible output:</p>
+<pre><code>assignee_id     score_value
+1               1
+1               0
+2               1
+</code></pre></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1031,6 +1104,32 @@ So we add assignee_id to BASE_SELECT and got:</p>
         name.surname of developer who perform calculations
     columns: list of str, optional, default=None
         columns to use in resulting table
+
+    Notes
+    ----------
+
+    Example
+
+    Input parameters:
+
+    - dataset_id = &#39;dataset&#39;
+    - table_id = &#39;table&#39;
+    - dev_name = &#39;artem.snegirev&#39;
+    - columns = [&#39;assignee_id, &#39;score_value&#39;]
+
+    Suppose instance has next out_df:
+
+        assignee_id     country     score_value
+        1               russia      1
+        1               usa         0
+        2               usa         1
+
+    Country is not in columns when possible output:
+
+        assignee_id     score_value
+        1               1
+        1               0
+        2               1
 
     &#34;&#34;&#34;
 

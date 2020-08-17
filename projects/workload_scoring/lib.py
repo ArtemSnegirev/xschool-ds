@@ -288,6 +288,32 @@ class WorkloadScoring:
         columns: list of str, optional, default=None
             columns to use in resulting table
 
+        Notes
+        ----------
+
+        Example
+
+        Input parameters:
+
+        - dataset_id = 'dataset'
+        - table_id = 'table'
+        - dev_name = 'artem.snegirev'
+        - columns = ['assignee_id, 'score_value']
+
+        Suppose instance has next out_df:
+
+            assignee_id     country     score_value
+            1               russia      1
+            1               usa         0
+            2               usa         1
+
+        Country is not in columns when possible output:
+
+            assignee_id     score_value
+            1               1
+            1               0
+            2               1
+
         """
 
         if self.out_df is None:
