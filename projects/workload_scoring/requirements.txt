@@ -1,6 +1,7 @@
 numpy
 pandas
 pandas-gbq
+google
 google-auth
 
 python-dotenv
