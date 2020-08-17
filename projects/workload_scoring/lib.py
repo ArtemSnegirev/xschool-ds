@@ -95,6 +95,13 @@ class WorkloadScoring:
         end_date: str, optional, default='2017-04-01'
             date of the last interval in schema 'y-m-d'
 
+
+        Notes
+        ----------
+
+        Algorithm explanation:
+
+
         """
 
         if self.raw_df is None:
@@ -172,7 +179,7 @@ class WorkloadScoring:
 
         self.out_df = pd.DataFrame(data=data)
 
-    def read_table(self, dataset_id, table_id, columns=None):
+    def read_table(self, dataset_id, table_id, columns):
         """Loading table data from BigQuery for workload scoring model
 
         Parameters
@@ -181,8 +188,63 @@ class WorkloadScoring:
             BigQuery dataset_id of dataset that contains tables
         table_id: str, required
             BigQuery table_id which use to query data
-        columns: list of str, optional, default=None
+        columns: list of dict of str: list of obj, required
             columns for grouping records e.g. group by column1, column2 etc.
+
+        Notes
+        ----------
+        Example 1:
+
+        Input parameters:
+
+        - dataset_id = 'dataset'
+        - table_id = 'table'
+        - columns = {'assignee_id': []}
+
+        We always have next query, call this one BASE_SELECT:
+
+            select id, date(cast(created_at as datetime)) as created, date(cast(updated_at as datetime)) as updated
+
+        Columns parameter can be interpreted as: also select assignee_id and get them all.
+        So we add assignee_id to BASE_SELECT and got:
+
+            BASE_SELECT, assignee_id
+
+        FROM statement is super simple and looks like:
+
+            from dataset.table
+
+        WHERE statement empty because assignee_id column has empty list
+
+        Possible output:
+
+            id      created     updated     assignee_id
+            1       2017-01-01  2017-04-02  1
+            2       2017-01-01  2017-04-03  1
+            3       2017-01-01  2017-04-03  2
+
+        Example 2:
+
+        Input parameters:
+
+        - dataset_id = 'dataset'
+        - table_id = 'table'
+        - columns = {'assignee_id': [], 'country': ['usa', 'russia'}
+
+        SELECT statement:
+
+            BASE_SELECT, assignee_id, country
+
+        WHERE statement:
+
+            where country in ('usa', 'russia')
+
+        Possible output:
+
+            id      created     updated     assignee_id     country
+            1       2017-01-01  2017-04-02  1               russia
+            2       2017-01-01  2017-04-03  1               usa
+            3       2017-01-01  2017-04-03  2               usa
 
         """
         where_statement = []

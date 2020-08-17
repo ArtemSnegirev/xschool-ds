@@ -151,6 +151,13 @@ class WorkloadScoring:
         end_date: str, optional, default=&#39;2017-04-01&#39;
             date of the last interval in schema &#39;y-m-d&#39;
 
+
+        Notes
+        ----------
+
+        Algorithm explanation:
+
+
         &#34;&#34;&#34;
 
         if self.raw_df is None:
@@ -228,7 +235,7 @@ class WorkloadScoring:
 
         self.out_df = pd.DataFrame(data=data)
 
-    def read_table(self, dataset_id, table_id, columns=None):
+    def read_table(self, dataset_id, table_id, columns):
         &#34;&#34;&#34;Loading table data from BigQuery for workload scoring model
 
         Parameters
@@ -237,8 +244,63 @@ class WorkloadScoring:
             BigQuery dataset_id of dataset that contains tables
         table_id: str, required
             BigQuery table_id which use to query data
-        columns: list of str, optional, default=None
+        columns: list of dict of str: list of obj, required
             columns for grouping records e.g. group by column1, column2 etc.
+
+        Notes
+        ----------
+        Example 1:
+
+        Input parameters:
+
+        - dataset_id = &#39;dataset&#39;
+        - table_id = &#39;table&#39;
+        - columns = {&#39;assignee_id&#39;: []}
+
+        We always have next query, call this one BASE_SELECT:
+
+            select id, date(cast(created_at as datetime)) as created, date(cast(updated_at as datetime)) as updated
+
+        Columns parameter can be interpreted as: also select assignee_id and get them all.
+        So we add assignee_id to BASE_SELECT and got:
+
+            BASE_SELECT, assignee_id
+
+        FROM statement is super simple and looks like:
+
+            from dataset.table
+
+        WHERE statement empty because assignee_id column has empty list
+
+        Possible output:
+
+            id      created     updated     assignee_id
+            1       2017-01-01  2017-04-02  1
+            2       2017-01-01  2017-04-03  1
+            3       2017-01-01  2017-04-03  2
+
+        Example 2:
+
+        Input parameters:
+
+        - dataset_id = &#39;dataset&#39;
+        - table_id = &#39;table&#39;
+        - columns = {&#39;assignee_id&#39;: [], &#39;country&#39;: [&#39;usa&#39;, &#39;russia&#39;}
+
+        SELECT statement:
+
+            BASE_SELECT, assignee_id, country
+
+        WHERE statement:
+
+            where country in (&#39;usa&#39;, &#39;russia&#39;)
+
+        Possible output:
+
+            id      created     updated     assignee_id     country
+            1       2017-01-01  2017-04-02  1               russia
+            2       2017-01-01  2017-04-03  1               usa
+            3       2017-01-01  2017-04-03  2               usa
 
         &#34;&#34;&#34;
         where_statement = []
@@ -411,6 +473,13 @@ class WorkloadScoring:
         end_date: str, optional, default=&#39;2017-04-01&#39;
             date of the last interval in schema &#39;y-m-d&#39;
 
+
+        Notes
+        ----------
+
+        Algorithm explanation:
+
+
         &#34;&#34;&#34;
 
         if self.raw_df is None:
@@ -488,7 +557,7 @@ class WorkloadScoring:
 
         self.out_df = pd.DataFrame(data=data)
 
-    def read_table(self, dataset_id, table_id, columns=None):
+    def read_table(self, dataset_id, table_id, columns):
         &#34;&#34;&#34;Loading table data from BigQuery for workload scoring model
 
         Parameters
@@ -497,8 +566,63 @@ class WorkloadScoring:
             BigQuery dataset_id of dataset that contains tables
         table_id: str, required
             BigQuery table_id which use to query data
-        columns: list of str, optional, default=None
+        columns: list of dict of str: list of obj, required
             columns for grouping records e.g. group by column1, column2 etc.
+
+        Notes
+        ----------
+        Example 1:
+
+        Input parameters:
+
+        - dataset_id = &#39;dataset&#39;
+        - table_id = &#39;table&#39;
+        - columns = {&#39;assignee_id&#39;: []}
+
+        We always have next query, call this one BASE_SELECT:
+
+            select id, date(cast(created_at as datetime)) as created, date(cast(updated_at as datetime)) as updated
+
+        Columns parameter can be interpreted as: also select assignee_id and get them all.
+        So we add assignee_id to BASE_SELECT and got:
+
+            BASE_SELECT, assignee_id
+
+        FROM statement is super simple and looks like:
+
+            from dataset.table
+
+        WHERE statement empty because assignee_id column has empty list
+
+        Possible output:
+
+            id      created     updated     assignee_id
+            1       2017-01-01  2017-04-02  1
+            2       2017-01-01  2017-04-03  1
+            3       2017-01-01  2017-04-03  2
+
+        Example 2:
+
+        Input parameters:
+
+        - dataset_id = &#39;dataset&#39;
+        - table_id = &#39;table&#39;
+        - columns = {&#39;assignee_id&#39;: [], &#39;country&#39;: [&#39;usa&#39;, &#39;russia&#39;}
+
+        SELECT statement:
+
+            BASE_SELECT, assignee_id, country
+
+        WHERE statement:
+
+            where country in (&#39;usa&#39;, &#39;russia&#39;)
+
+        Possible output:
+
+            id      created     updated     assignee_id     country
+            1       2017-01-01  2017-04-02  1               russia
+            2       2017-01-01  2017-04-03  1               usa
+            3       2017-01-01  2017-04-03  2               usa
 
         &#34;&#34;&#34;
         where_statement = []
@@ -596,7 +720,7 @@ class WorkloadScoring:
 <h3>Methods</h3>
 <dl>
 <dt id="lib.WorkloadScoring.read_table"><code class="name flex">
-<span>def <span class="ident">read_table</span></span>(<span>self, dataset_id, table_id, columns=None)</span>
+<span>def <span class="ident">read_table</span></span>(<span>self, dataset_id, table_id, columns)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Loading table data from BigQuery for workload scoring model</p>
@@ -606,14 +730,58 @@ class WorkloadScoring:
 <dd>BigQuery dataset_id of dataset that contains tables</dd>
 <dt><strong><code>table_id</code></strong> :&ensp;<code>str, required</code></dt>
 <dd>BigQuery table_id which use to query data</dd>
-<dt><strong><code>columns</code></strong> :&ensp;<code>list</code> of <code>str</code>, optional, default=<code>None</code></dt>
+<dt><strong><code>columns</code></strong> :&ensp;<code>list</code> of <code>dict</code> of <code>str: list</code> of <code>obj, required</code></dt>
 <dd>columns for grouping records e.g. group by column1, column2 etc.</dd>
-</dl></div>
+</dl>
+<h2 id="notes">Notes</h2>
+<p>Example 1:</p>
+<p>Input parameters:</p>
+<ul>
+<li>dataset_id = 'dataset'</li>
+<li>table_id = 'table'</li>
+<li>columns = {'assignee_id': []}</li>
+</ul>
+<p>We always have next query, call this one BASE_SELECT:</p>
+<pre><code>select id, date(cast(created_at as datetime)) as created, date(cast(updated_at as datetime)) as updated
+</code></pre>
+<p>Columns parameter can be interpreted as: also select assignee_id and get them all.
+So we add assignee_id to BASE_SELECT and got:</p>
+<pre><code>BASE_SELECT, assignee_id
+</code></pre>
+<p>FROM statement is super simple and looks like:</p>
+<pre><code>from dataset.table
+</code></pre>
+<p>WHERE statement empty because assignee_id column has empty list</p>
+<p>Possible output:</p>
+<pre><code>id      created     updated     assignee_id
+1       2017-01-01  2017-04-02  1
+2       2017-01-01  2017-04-03  1
+3       2017-01-01  2017-04-03  2
+</code></pre>
+<p>Example 2:</p>
+<p>Input parameters:</p>
+<ul>
+<li>dataset_id = 'dataset'</li>
+<li>table_id = 'table'</li>
+<li>columns = {'assignee_id': [], 'country': ['usa', 'russia'}</li>
+</ul>
+<p>SELECT statement:</p>
+<pre><code>BASE_SELECT, assignee_id, country
+</code></pre>
+<p>WHERE statement:</p>
+<pre><code>where country in ('usa', 'russia')
+</code></pre>
+<p>Possible output:</p>
+<pre><code>id      created     updated     assignee_id     country
+1       2017-01-01  2017-04-02  1               russia
+2       2017-01-01  2017-04-03  1               usa
+3       2017-01-01  2017-04-03  2               usa
+</code></pre></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def read_table(self, dataset_id, table_id, columns=None):
+<pre><code class="python">def read_table(self, dataset_id, table_id, columns):
     &#34;&#34;&#34;Loading table data from BigQuery for workload scoring model
 
     Parameters
@@ -622,8 +790,63 @@ class WorkloadScoring:
         BigQuery dataset_id of dataset that contains tables
     table_id: str, required
         BigQuery table_id which use to query data
-    columns: list of str, optional, default=None
+    columns: list of dict of str: list of obj, required
         columns for grouping records e.g. group by column1, column2 etc.
+
+    Notes
+    ----------
+    Example 1:
+
+    Input parameters:
+
+    - dataset_id = &#39;dataset&#39;
+    - table_id = &#39;table&#39;
+    - columns = {&#39;assignee_id&#39;: []}
+
+    We always have next query, call this one BASE_SELECT:
+
+        select id, date(cast(created_at as datetime)) as created, date(cast(updated_at as datetime)) as updated
+
+    Columns parameter can be interpreted as: also select assignee_id and get them all.
+    So we add assignee_id to BASE_SELECT and got:
+
+        BASE_SELECT, assignee_id
+
+    FROM statement is super simple and looks like:
+
+        from dataset.table
+
+    WHERE statement empty because assignee_id column has empty list
+
+    Possible output:
+
+        id      created     updated     assignee_id
+        1       2017-01-01  2017-04-02  1
+        2       2017-01-01  2017-04-03  1
+        3       2017-01-01  2017-04-03  2
+
+    Example 2:
+
+    Input parameters:
+
+    - dataset_id = &#39;dataset&#39;
+    - table_id = &#39;table&#39;
+    - columns = {&#39;assignee_id&#39;: [], &#39;country&#39;: [&#39;usa&#39;, &#39;russia&#39;}
+
+    SELECT statement:
+
+        BASE_SELECT, assignee_id, country
+
+    WHERE statement:
+
+        where country in (&#39;usa&#39;, &#39;russia&#39;)
+
+    Possible output:
+
+        id      created     updated     assignee_id     country
+        1       2017-01-01  2017-04-02  1               russia
+        2       2017-01-01  2017-04-03  1               usa
+        3       2017-01-01  2017-04-03  2               usa
 
     &#34;&#34;&#34;
     where_statement = []
@@ -669,7 +892,9 @@ class WorkloadScoring:
 <dd>window that used to slide against period</dd>
 <dt><strong><code>end_date</code></strong> :&ensp;<code>str</code>, optional, default=<code>'2017-04-01'</code></dt>
 <dd>date of the last interval in schema 'y-m-d'</dd>
-</dl></div>
+</dl>
+<h2 id="notes">Notes</h2>
+<p>Algorithm explanation:</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -687,6 +912,13 @@ class WorkloadScoring:
         window that used to slide against period
     end_date: str, optional, default=&#39;2017-04-01&#39;
         date of the last interval in schema &#39;y-m-d&#39;
+
+
+    Notes
+    ----------
+
+    Algorithm explanation:
+
 
     &#34;&#34;&#34;
 
