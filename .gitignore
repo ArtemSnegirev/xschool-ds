@@ -9,3 +9,5 @@ lectures
 datasets
 
 __pycache__
+
+deploy.sh
