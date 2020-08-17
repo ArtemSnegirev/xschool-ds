@@ -309,10 +309,10 @@ class WorkloadScoring:
 
         Country is not in columns when possible output:
 
-            assignee_id     score_value
-            1               1
-            1               0
-            2               1
+            assignee_id     score_value     developer
+            1               1               artem.snegirev
+            1               0               artem.snegirev
+            2               1               artem.snegirev
 
         """
 
