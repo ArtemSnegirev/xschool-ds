@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.8.4" />
 <title>lib API documentation</title>
-<meta name="description" content="Workload scoring library …" />
+<meta name="description" content="This library provides class WorkloadScoring to calculate workload scoring based on BigQuery …" />
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
 <link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/github.min.css" crossorigin>
@@ -22,42 +22,43 @@
 <h1 class="title">Module <code>lib</code></h1>
 </header>
 <section id="section-intro">
-<p>Workload scoring library</p>
 <p>This library provides class WorkloadScoring to calculate workload scoring based on BigQuery.</p>
-<p>Supported features:
-- safely storing and reading GCP credentials at .env (Google Cloud Platform)
-- splitting records by categorical features e.g. country, channels and so on
-- managing historical period for calculations e.g. last 28 days
-- workload scoring calculation based on confidence interval
-- approaches to calculate scoring based on machine learning [in progress]</p>
+<p>Supported features:</p>
+<ul>
+<li>safely storing and reading GCP credentials at .env (Google Cloud Platform)</li>
+<li>splitting records by categorical features e.g. country, channels and so on</li>
+<li>managing historical period for calculations e.g. last 28 days</li>
+<li>workload scoring calculation based on confidence interval</li>
+<li>approaches to calculate scoring based on machine learning [in progress]</li>
+</ul>
 <h2 id="notes">Notes</h2>
-<pre><code>[!] Make sure you have &lt;code&gt;credentials&lt;/code&gt; to work with GCP.
-[!] Library uses ``google-auth`` to work with credentials and ``pandas-gbq``.
-[!] Library uses &lt;code&gt;dotenv&lt;/code&gt; to safely store security-sensitive data.
-</code></pre>
+<p>[!] Make sure you have credentials to work with GCP.</p>
+<p>[!] Library uses google-auth to work with credentials and pandas-gbq.</p>
+<p>[!] Library uses dotenv to safely store security-sensitive data.</p>
 <h2 id="using">Using</h2>
-<pre><code>- create account object by passing credentials to create WorkloadScoring instance
-- read BigQuery table by &lt;code&gt;read\_table&lt;/code&gt; method passing the necessary columns to split records
-- calculate assignee workload score by &lt;code&gt;workload\_scoring&lt;/code&gt; method passing the time intervals and columns for splitting
-- write BigQuery table by &lt;code&gt;write\_table&lt;/code&gt; method passing the columns to save as your schema supposes
-</code></pre>
+<ul>
+<li>create account object by passing credentials to create WorkloadScoring instance</li>
+<li>read BigQuery table by <code>read_table</code> method passing the necessary columns to split records</li>
+<li>calculate assignee workload score by <code>workload_scoring</code> method passing the time intervals and columns for splitting</li>
+<li>write BigQuery table by <code>write_table</code> method passing the columns to save as your schema supposes</li>
+</ul>
 <h2 id="example">Example</h2>
-<pre><code>[!] make sure you setup your own credentials in .env in the root of repo.
-
-See examples in &lt;code&gt;examples.py&lt;/code&gt;
-
-
-$ python examples.py
+<p>[!] make sure you setup your own credentials in .env in the root of repo.</p>
+<p>Setup requirements:</p>
+<pre><code>$ pip install -r requirements.txt
+</code></pre>
+<p>Run examples from <code>examples.py</code></p>
+<pre><code>$ python examples.py
 </code></pre>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">&#34;&#34;&#34;Workload scoring library
-
+<pre><code class="python">&#34;&#34;&#34;
 This library provides class WorkloadScoring to calculate workload scoring based on BigQuery.
 
 Supported features:
+
 - safely storing and reading GCP credentials at .env (Google Cloud Platform)
 - splitting records by categorical features e.g. country, channels and so on
 - managing historical period for calculations e.g. last 28 days
@@ -66,23 +67,29 @@ Supported features:
 
 Notes
 -----
-    [!] Make sure you have ``credentials`` to work with GCP.
-    [!] Library uses ``google-auth`` to work with credentials and ``pandas-gbq``.
-    [!] Library uses ``dotenv`` to safely store security-sensitive data.
+
+[!] Make sure you have credentials to work with GCP.
+
+[!] Library uses google-auth to work with credentials and pandas-gbq.
+
+[!] Library uses dotenv to safely store security-sensitive data.
 
 Using
 -------
-    - create account object by passing credentials to create WorkloadScoring instance
-    - read BigQuery table by ``read_table`` method passing the necessary columns to split records
-    - calculate assignee workload score by ``workload_scoring`` method passing the time intervals and columns for splitting
-    - write BigQuery table by ``write_table`` method passing the columns to save as your schema supposes
+- create account object by passing credentials to create WorkloadScoring instance
+- read BigQuery table by ``read_table`` method passing the necessary columns to split records
+- calculate assignee workload score by ``workload_scoring`` method passing the time intervals and columns for splitting
+- write BigQuery table by ``write_table`` method passing the columns to save as your schema supposes
 
 Example
 -------
-    [!] make sure you setup your own credentials in .env in the root of repo.
+[!] make sure you setup your own credentials in .env in the root of repo.
 
-    See examples in ``examples.py``
+Setup requirements:
 
+    $ pip install -r requirements.txt
+
+Run examples from ``examples.py``
 
     $ python examples.py
 
@@ -101,49 +108,28 @@ import itertools as it
 
 
 class WorkloadScoring:
-    &#34;&#34;&#34;The summary line for a class docstring should fit on one line.
-
-    If the class has public attributes, they may be documented here
-    in an ``Attributes`` section and follow the same formatting as a
-    function&#39;s ``Args`` section. Alternatively, attributes may be documented
-    inline with the attribute&#39;s declaration (see __init__ method below).
-
-    Properties created with the ``@property`` decorator should be documented
-    in the property&#39;s getter method.
-
-    Attributes
-    ----------
-    attr1 : str
-        Description of `attr1`.
-    attr2 : :obj:`int`, optional
-        Description of `attr2`.
-
+    &#34;&#34;&#34;Class to calculate workload scoring based on BigQuery.
     &#34;&#34;&#34;
 
     def __init__(self, credentials):
-        &#34;&#34;&#34;Example of docstring on the __init__ method.
-
-        The __init__ method may be documented in either the class level
-        docstring, or as a docstring on the __init__ method itself.
-
-        Either form is acceptable, but the two should not be mixed. Choose one
-        convention to document the __init__ method and be consistent with it.
-
-        Note
-        ----
-        Do not include the `self` parameter in the ``Parameters`` section.
+        &#34;&#34;&#34;
 
         Parameters
         ----------
-        param1 : str
-            Description of `param1`.
-        param2 : :obj:`list` of :obj:`str`
-            Description of `param2`. Multiple
-            lines are supported.
-        param3 : :obj:`int`, optional
-            Description of `param3`.
+        credentials: dict of str: str, required
+            required fields: https://google-auth.readthedocs.io/en/latest/user-guide.html
+
+        Attributes
+        ----------
+        raw_df : dataframe
+            BigQuery table data representation as pandas.DataFrame
+        out_df : dataframe
+            result of score calculation for saving in BigQuery table
+        project_id: dataframe
+            GCP project_id where placed BigQuery dataset and tables
 
         &#34;&#34;&#34;
+
         self.raw_df = None
         self.out_df = None
 
@@ -154,21 +140,16 @@ class WorkloadScoring:
     def workload_scoring(self, columns_list, num_of_all_days=28, num_of_interval_days=7, end_date=&#39;2017-04-01&#39;):
         &#34;&#34;&#34;Class methods are similar to regular functions.
 
-        Note
-        ----
-        Do not include the `self` parameter in the ``Parameters`` section.
-
         Parameters
         ----------
-        param1
-            The first parameter.
-        param2
-            The second parameter.
-
-        Returns
-        -------
-        bool
-            True if successful, False otherwise.
+        columns_list: list of str, required
+            columns for splitting dataframe e.g. group by column1, column2 etc.
+        num_of_all_days: int, optional, default=28
+            period in days that used to calculate score
+        num_of_interval_days: int, optional, default=7
+            window that used to slide against period
+        end_date: str, optional, default=&#39;2017-04-01&#39;
+            date of the last interval in schema &#39;y-m-d&#39;
 
         &#34;&#34;&#34;
 
@@ -188,35 +169,27 @@ class WorkloadScoring:
 
             col_unique_vals.append(self.raw_df[column].unique())
 
-        #
         cartesian_product = list(it.product(*col_unique_vals))
 
         for values in cartesian_product:
-            # берем срез записей в зависимости от набора значений по категориям
             df_slice = self.__get_dataframe_slice(columns_list, values)
 
-            # берем конечную дату
             end_date = dt.datetime.strptime(str(end_date), &#39;%Y-%m-%d&#39;)
             end_date = end_date.date()
 
-            # берем первую дату
             fst_cur_date = end_date - dt.timedelta(days=num_of_all_days)
 
-            # берем интервал/смещение
             delta = dt.timedelta(days=num_of_interval_days)
 
-            # находим конец первого периода
             snd_cur_date = fst_cur_date + delta
 
             num_of_intervals = int(num_of_all_days / num_of_interval_days)
             num_tasks_per_week = []
 
             for i in range(0, num_of_intervals):
-                # берем записи i интервала
                 df_interval = df_slice[
                     (df_slice.updated &gt;= str(fst_cur_date)) &amp; (df_slice.updated &lt;= str(snd_cur_date))]
 
-                # делаем смещения
                 fst_cur_date = fst_cur_date + delta
                 snd_cur_date = snd_cur_date + delta
 
@@ -228,23 +201,21 @@ class WorkloadScoring:
 
             avg_num_of_task_per_week = round(np.mean(num_tasks_per_week), 2)
 
-            # squared deviations
+            # TODO: rewrite score calculation logic as interface-&gt;class-&gt;object
+
             x_values = []
             for num in num_tasks_per_week:
                 x = round((num - avg_num_of_task_per_week) ** 2, 2)
                 x_values.append(x)
 
-            # data sampling statistics
-            x_sum = round(sum(x_values), 2)  # sum of squared deviations
-            dispersion = round(x_sum / (num_of_intervals - 1), 2)  # dispersion
-            std = round(mt.sqrt(dispersion), 2)  # standart deviation for sample
-            ste = round(std / mt.sqrt(num_of_intervals), 2)  # standart error for sample
+            x_sum = round(sum(x_values), 2)
+            dispersion = round(x_sum / (num_of_intervals - 1), 2)
+            std = round(mt.sqrt(dispersion), 2)
+            ste = round(std / mt.sqrt(num_of_intervals), 2)
 
-            # confidence interval
             left_border = int(avg_num_of_task_per_week - ste)
             right_border = int(avg_num_of_task_per_week + ste)
 
-            # workload scoring for status
             score_value = self.__calc_workload_score(left_border, right_border, num_tasks_per_current_week)
 
             data[&#39;score_value&#39;].append(score_value)
@@ -388,85 +359,48 @@ class WorkloadScoring:
 <span>(</span><span>credentials)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The summary line for a class docstring should fit on one line.</p>
-<p>If the class has public attributes, they may be documented here
-in an <code>Attributes</code> section and follow the same formatting as a
-function's <code>Args</code> section. Alternatively, attributes may be documented
-inline with the attribute's declaration (see <strong>init</strong> method below).</p>
-<p>Properties created with the <code>@property</code> decorator should be documented
-in the property's getter method.</p>
-<h2 id="attributes">Attributes</h2>
-<dl>
-<dt><strong><code>attr1</code></strong> :&ensp;<code>str</code></dt>
-<dd>Description of <code>attr1</code>.</dd>
-<dt><strong><code>attr2</code></strong> :&ensp;<code>:obj:</code>int``, optional</dt>
-<dd>Description of <code>attr2</code>.</dd>
-</dl>
-<p>Example of docstring on the <strong>init</strong> method.</p>
-<p>The <strong>init</strong> method may be documented in either the class level
-docstring, or as a docstring on the <strong>init</strong> method itself.</p>
-<p>Either form is acceptable, but the two should not be mixed. Choose one
-convention to document the <strong>init</strong> method and be consistent with it.</p>
-<h2 id="note">Note</h2>
-<p>Do not include the <code>self</code> parameter in the <code>Parameters</code> section.</p>
+<div class="desc"><p>Class to calculate workload scoring based on BigQuery.</p>
 <h2 id="parameters">Parameters</h2>
 <dl>
-<dt><strong><code>param1</code></strong> :&ensp;<code>str</code></dt>
-<dd>Description of <code>param1</code>.</dd>
-<dt><strong><code>param2</code></strong> :&ensp;<code>:obj:</code>list<code>of `:obj:`str</code></dt>
-<dd>Description of <code>param2</code>. Multiple
-lines are supported.</dd>
-<dt><strong><code>param3</code></strong> :&ensp;<code>:obj:</code>int``, optional</dt>
-<dd>Description of <code>param3</code>.</dd>
+<dt><strong><code>credentials</code></strong> :&ensp;<code>dict</code> of <code>str: str, required</code></dt>
+<dd>required fields: <a href="https://google-auth.readthedocs.io/en/latest/user-guide.html">https://google-auth.readthedocs.io/en/latest/user-guide.html</a></dd>
+</dl>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>raw_df</code></strong> :&ensp;<code>dataframe</code></dt>
+<dd>BigQuery table data representation as pandas.DataFrame</dd>
+<dt><strong><code>out_df</code></strong> :&ensp;<code>dataframe</code></dt>
+<dd>result of score calculation for saving in BigQuery table</dd>
+<dt><strong><code>project_id</code></strong> :&ensp;<code>dataframe</code></dt>
+<dd>GCP project_id where placed BigQuery dataset and tables</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class WorkloadScoring:
-    &#34;&#34;&#34;The summary line for a class docstring should fit on one line.
-
-    If the class has public attributes, they may be documented here
-    in an ``Attributes`` section and follow the same formatting as a
-    function&#39;s ``Args`` section. Alternatively, attributes may be documented
-    inline with the attribute&#39;s declaration (see __init__ method below).
-
-    Properties created with the ``@property`` decorator should be documented
-    in the property&#39;s getter method.
-
-    Attributes
-    ----------
-    attr1 : str
-        Description of `attr1`.
-    attr2 : :obj:`int`, optional
-        Description of `attr2`.
-
+    &#34;&#34;&#34;Class to calculate workload scoring based on BigQuery.
     &#34;&#34;&#34;
 
     def __init__(self, credentials):
-        &#34;&#34;&#34;Example of docstring on the __init__ method.
-
-        The __init__ method may be documented in either the class level
-        docstring, or as a docstring on the __init__ method itself.
-
-        Either form is acceptable, but the two should not be mixed. Choose one
-        convention to document the __init__ method and be consistent with it.
-
-        Note
-        ----
-        Do not include the `self` parameter in the ``Parameters`` section.
+        &#34;&#34;&#34;
 
         Parameters
         ----------
-        param1 : str
-            Description of `param1`.
-        param2 : :obj:`list` of :obj:`str`
-            Description of `param2`. Multiple
-            lines are supported.
-        param3 : :obj:`int`, optional
-            Description of `param3`.
+        credentials: dict of str: str, required
+            required fields: https://google-auth.readthedocs.io/en/latest/user-guide.html
+
+        Attributes
+        ----------
+        raw_df : dataframe
+            BigQuery table data representation as pandas.DataFrame
+        out_df : dataframe
+            result of score calculation for saving in BigQuery table
+        project_id: dataframe
+            GCP project_id where placed BigQuery dataset and tables
 
         &#34;&#34;&#34;
+
         self.raw_df = None
         self.out_df = None
 
@@ -477,21 +411,16 @@ lines are supported.</dd>
     def workload_scoring(self, columns_list, num_of_all_days=28, num_of_interval_days=7, end_date=&#39;2017-04-01&#39;):
         &#34;&#34;&#34;Class methods are similar to regular functions.
 
-        Note
-        ----
-        Do not include the `self` parameter in the ``Parameters`` section.
-
         Parameters
         ----------
-        param1
-            The first parameter.
-        param2
-            The second parameter.
-
-        Returns
-        -------
-        bool
-            True if successful, False otherwise.
+        columns_list: list of str, required
+            columns for splitting dataframe e.g. group by column1, column2 etc.
+        num_of_all_days: int, optional, default=28
+            period in days that used to calculate score
+        num_of_interval_days: int, optional, default=7
+            window that used to slide against period
+        end_date: str, optional, default=&#39;2017-04-01&#39;
+            date of the last interval in schema &#39;y-m-d&#39;
 
         &#34;&#34;&#34;
 
@@ -511,35 +440,27 @@ lines are supported.</dd>
 
             col_unique_vals.append(self.raw_df[column].unique())
 
-        #
         cartesian_product = list(it.product(*col_unique_vals))
 
         for values in cartesian_product:
-            # берем срез записей в зависимости от набора значений по категориям
             df_slice = self.__get_dataframe_slice(columns_list, values)
 
-            # берем конечную дату
             end_date = dt.datetime.strptime(str(end_date), &#39;%Y-%m-%d&#39;)
             end_date = end_date.date()
 
-            # берем первую дату
             fst_cur_date = end_date - dt.timedelta(days=num_of_all_days)
 
-            # берем интервал/смещение
             delta = dt.timedelta(days=num_of_interval_days)
 
-            # находим конец первого периода
             snd_cur_date = fst_cur_date + delta
 
             num_of_intervals = int(num_of_all_days / num_of_interval_days)
             num_tasks_per_week = []
 
             for i in range(0, num_of_intervals):
-                # берем записи i интервала
                 df_interval = df_slice[
                     (df_slice.updated &gt;= str(fst_cur_date)) &amp; (df_slice.updated &lt;= str(snd_cur_date))]
 
-                # делаем смещения
                 fst_cur_date = fst_cur_date + delta
                 snd_cur_date = snd_cur_date + delta
 
@@ -551,23 +472,21 @@ lines are supported.</dd>
 
             avg_num_of_task_per_week = round(np.mean(num_tasks_per_week), 2)
 
-            # squared deviations
+            # TODO: rewrite score calculation logic as interface-&gt;class-&gt;object
+
             x_values = []
             for num in num_tasks_per_week:
                 x = round((num - avg_num_of_task_per_week) ** 2, 2)
                 x_values.append(x)
 
-            # data sampling statistics
-            x_sum = round(sum(x_values), 2)  # sum of squared deviations
-            dispersion = round(x_sum / (num_of_intervals - 1), 2)  # dispersion
-            std = round(mt.sqrt(dispersion), 2)  # standart deviation for sample
-            ste = round(std / mt.sqrt(num_of_intervals), 2)  # standart error for sample
+            x_sum = round(sum(x_values), 2)
+            dispersion = round(x_sum / (num_of_intervals - 1), 2)
+            std = round(mt.sqrt(dispersion), 2)
+            ste = round(std / mt.sqrt(num_of_intervals), 2)
 
-            # confidence interval
             left_border = int(avg_num_of_task_per_week - ste)
             right_border = int(avg_num_of_task_per_week + ste)
 
-            # workload scoring for status
             score_value = self.__calc_workload_score(left_border, right_border, num_tasks_per_current_week)
 
             data[&#39;score_value&#39;].append(score_value)
@@ -774,19 +693,16 @@ lines are supported.</dd>
 </code></dt>
 <dd>
 <div class="desc"><p>Class methods are similar to regular functions.</p>
-<h2 id="note">Note</h2>
-<p>Do not include the <code>self</code> parameter in the <code>Parameters</code> section.</p>
 <h2 id="parameters">Parameters</h2>
 <dl>
-<dt><strong><code>param1</code></strong></dt>
-<dd>The first parameter.</dd>
-<dt><strong><code>param2</code></strong></dt>
-<dd>The second parameter.</dd>
-</dl>
-<h2 id="returns">Returns</h2>
-<dl>
-<dt><code>bool</code></dt>
-<dd>True if successful, False otherwise.</dd>
+<dt><strong><code>columns_list</code></strong> :&ensp;<code>list</code> of <code>str, required</code></dt>
+<dd>columns for splitting dataframe e.g. group by column1, column2 etc.</dd>
+<dt><strong><code>num_of_all_days</code></strong> :&ensp;<code>int</code>, optional, default=<code>28</code></dt>
+<dd>period in days that used to calculate score</dd>
+<dt><strong><code>num_of_interval_days</code></strong> :&ensp;<code>int</code>, optional, default=<code>7</code></dt>
+<dd>window that used to slide against period</dd>
+<dt><strong><code>end_date</code></strong> :&ensp;<code>str</code>, optional, default=<code>'2017-04-01'</code></dt>
+<dd>date of the last interval in schema 'y-m-d'</dd>
 </dl></div>
 <details class="source">
 <summary>
@@ -795,21 +711,16 @@ lines are supported.</dd>
 <pre><code class="python">def workload_scoring(self, columns_list, num_of_all_days=28, num_of_interval_days=7, end_date=&#39;2017-04-01&#39;):
     &#34;&#34;&#34;Class methods are similar to regular functions.
 
-    Note
-    ----
-    Do not include the `self` parameter in the ``Parameters`` section.
-
     Parameters
     ----------
-    param1
-        The first parameter.
-    param2
-        The second parameter.
-
-    Returns
-    -------
-    bool
-        True if successful, False otherwise.
+    columns_list: list of str, required
+        columns for splitting dataframe e.g. group by column1, column2 etc.
+    num_of_all_days: int, optional, default=28
+        period in days that used to calculate score
+    num_of_interval_days: int, optional, default=7
+        window that used to slide against period
+    end_date: str, optional, default=&#39;2017-04-01&#39;
+        date of the last interval in schema &#39;y-m-d&#39;
 
     &#34;&#34;&#34;
 
@@ -829,35 +740,27 @@ lines are supported.</dd>
 
         col_unique_vals.append(self.raw_df[column].unique())
 
-    #
     cartesian_product = list(it.product(*col_unique_vals))
 
     for values in cartesian_product:
-        # берем срез записей в зависимости от набора значений по категориям
         df_slice = self.__get_dataframe_slice(columns_list, values)
 
-        # берем конечную дату
         end_date = dt.datetime.strptime(str(end_date), &#39;%Y-%m-%d&#39;)
         end_date = end_date.date()
 
-        # берем первую дату
         fst_cur_date = end_date - dt.timedelta(days=num_of_all_days)
 
-        # берем интервал/смещение
         delta = dt.timedelta(days=num_of_interval_days)
 
-        # находим конец первого периода
         snd_cur_date = fst_cur_date + delta
 
         num_of_intervals = int(num_of_all_days / num_of_interval_days)
         num_tasks_per_week = []
 
         for i in range(0, num_of_intervals):
-            # берем записи i интервала
             df_interval = df_slice[
                 (df_slice.updated &gt;= str(fst_cur_date)) &amp; (df_slice.updated &lt;= str(snd_cur_date))]
 
-            # делаем смещения
             fst_cur_date = fst_cur_date + delta
             snd_cur_date = snd_cur_date + delta
 
@@ -869,23 +772,21 @@ lines are supported.</dd>
 
         avg_num_of_task_per_week = round(np.mean(num_tasks_per_week), 2)
 
-        # squared deviations
+        # TODO: rewrite score calculation logic as interface-&gt;class-&gt;object
+
         x_values = []
         for num in num_tasks_per_week:
             x = round((num - avg_num_of_task_per_week) ** 2, 2)
             x_values.append(x)
 
-        # data sampling statistics
-        x_sum = round(sum(x_values), 2)  # sum of squared deviations
-        dispersion = round(x_sum / (num_of_intervals - 1), 2)  # dispersion
-        std = round(mt.sqrt(dispersion), 2)  # standart deviation for sample
-        ste = round(std / mt.sqrt(num_of_intervals), 2)  # standart error for sample
+        x_sum = round(sum(x_values), 2)
+        dispersion = round(x_sum / (num_of_intervals - 1), 2)
+        std = round(mt.sqrt(dispersion), 2)
+        ste = round(std / mt.sqrt(num_of_intervals), 2)
 
-        # confidence interval
         left_border = int(avg_num_of_task_per_week - ste)
         right_border = int(avg_num_of_task_per_week + ste)
 
-        # workload scoring for status
         score_value = self.__calc_workload_score(left_border, right_border, num_tasks_per_current_week)
 
         data[&#39;score_value&#39;].append(score_value)
