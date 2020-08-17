@@ -1,3 +1,5 @@
+numpy
+pandas
 pandas-gbq
 google-auth
 
