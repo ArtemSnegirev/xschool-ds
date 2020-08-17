@@ -99,8 +99,56 @@ class WorkloadScoring:
         Notes
         ----------
 
-        Algorithm explanation:
+        Algorithm explanation
 
+        1) Calculate cartesian product unique values in each columns
+
+        Example input:
+
+        - assignee_id: [1, 2, 3]
+        - country: ['usa', 'russia']
+
+        Example output:
+
+            cartesian_product = [(1, 'usa'), (1, 'russia'), (2, 'usa'), (2, 'russia'), (3, 'usa'), (3, 'russia')]
+
+        On each element of cartesian_product do 2-6
+
+        2) Get slice of dataframe based on value in tuple (e.g. assignee_id - 1, country – 'usa')
+
+        For example:
+
+            id      created     updated     assignee_id     country
+            1       2017-01-01  2017-04-02  1               usa
+            2       2017-01-01  2017-04-03  1               usa
+
+        3) For every interval in period count task was finished by assignee
+
+        For example end date – 2017-04-28, interval – 7 days. Possible result:
+
+            completed = [
+                2, # 2017-04-01 - 2017-04-07
+                4, # 2017-04-08 - 2017-04-14
+                3, # 2017-04-15 - 2017-04-21
+                2  # 2017-04-22 - 2017-04-28
+            ]
+
+        4) Calculate mean, std, var, ste for all intervals except the last one (2017-04-22 - 2017-04-28)
+
+        For completed:
+
+            mean – 3.00
+            var  - 0.66
+            std  - 0.82
+            ste  – 0.47
+
+        5) Calculate confidence interval
+
+            confidence interval is 3.00 +- 0.47
+
+        6) Calculate workload score
+
+            2 < 2.53 –> 0
 
         """
 
@@ -160,8 +208,8 @@ class WorkloadScoring:
                 x_values.append(x)
 
             x_sum = round(sum(x_values), 2)
-            dispersion = round(x_sum / (num_of_intervals - 1), 2)
-            std = round(mt.sqrt(dispersion), 2)
+            var = round(x_sum / (num_of_intervals - 1), 2)
+            std = round(mt.sqrt(var), 2)
             ste = round(std / mt.sqrt(num_of_intervals), 2)
 
             left_border = int(avg_num_of_task_per_week - ste)

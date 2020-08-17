@@ -155,8 +155,56 @@ class WorkloadScoring:
         Notes
         ----------
 
-        Algorithm explanation:
+        Algorithm explanation
 
+        1) Calculate cartesian product unique values in each columns
+
+        Example input:
+
+        - assignee_id: [1, 2, 3]
+        - country: [&#39;usa&#39;, &#39;russia&#39;]
+
+        Example output:
+
+            cartesian_product = [(1, &#39;usa&#39;), (1, &#39;russia&#39;), (2, &#39;usa&#39;), (2, &#39;russia&#39;), (3, &#39;usa&#39;), (3, &#39;russia&#39;)]
+
+        On each element of cartesian_product do 2-6
+
+        2) Get slice of dataframe based on value in tuple (e.g. assignee_id - 1, country – &#39;usa&#39;)
+
+        For example:
+
+            id      created     updated     assignee_id     country
+            1       2017-01-01  2017-04-02  1               usa
+            2       2017-01-01  2017-04-03  1               usa
+
+        3) For every interval in period count task was finished by assignee
+
+        For example end date – 2017-04-28, interval – 7 days. Possible result:
+
+            completed = [
+                2, # 2017-04-01 - 2017-04-07
+                4, # 2017-04-08 - 2017-04-14
+                3, # 2017-04-15 - 2017-04-21
+                2  # 2017-04-22 - 2017-04-28
+            ]
+
+        4) Calculate mean, std, var, ste for all intervals except the last one (2017-04-22 - 2017-04-28)
+
+        For completed:
+
+            mean – 3.00
+            var  - 0.66
+            std  - 0.82
+            ste  – 0.47
+
+        5) Calculate confidence interval
+
+            confidence interval is 3.00 +- 0.47
+
+        6) Calculate workload score
+
+            2 &lt; 2.53 –&gt; 0
 
         &#34;&#34;&#34;
 
@@ -216,8 +264,8 @@ class WorkloadScoring:
                 x_values.append(x)
 
             x_sum = round(sum(x_values), 2)
-            dispersion = round(x_sum / (num_of_intervals - 1), 2)
-            std = round(mt.sqrt(dispersion), 2)
+            var = round(x_sum / (num_of_intervals - 1), 2)
+            std = round(mt.sqrt(var), 2)
             ste = round(std / mt.sqrt(num_of_intervals), 2)
 
             left_border = int(avg_num_of_task_per_week - ste)
@@ -503,8 +551,56 @@ class WorkloadScoring:
         Notes
         ----------
 
-        Algorithm explanation:
+        Algorithm explanation
 
+        1) Calculate cartesian product unique values in each columns
+
+        Example input:
+
+        - assignee_id: [1, 2, 3]
+        - country: [&#39;usa&#39;, &#39;russia&#39;]
+
+        Example output:
+
+            cartesian_product = [(1, &#39;usa&#39;), (1, &#39;russia&#39;), (2, &#39;usa&#39;), (2, &#39;russia&#39;), (3, &#39;usa&#39;), (3, &#39;russia&#39;)]
+
+        On each element of cartesian_product do 2-6
+
+        2) Get slice of dataframe based on value in tuple (e.g. assignee_id - 1, country – &#39;usa&#39;)
+
+        For example:
+
+            id      created     updated     assignee_id     country
+            1       2017-01-01  2017-04-02  1               usa
+            2       2017-01-01  2017-04-03  1               usa
+
+        3) For every interval in period count task was finished by assignee
+
+        For example end date – 2017-04-28, interval – 7 days. Possible result:
+
+            completed = [
+                2, # 2017-04-01 - 2017-04-07
+                4, # 2017-04-08 - 2017-04-14
+                3, # 2017-04-15 - 2017-04-21
+                2  # 2017-04-22 - 2017-04-28
+            ]
+
+        4) Calculate mean, std, var, ste for all intervals except the last one (2017-04-22 - 2017-04-28)
+
+        For completed:
+
+            mean – 3.00
+            var  - 0.66
+            std  - 0.82
+            ste  – 0.47
+
+        5) Calculate confidence interval
+
+            confidence interval is 3.00 +- 0.47
+
+        6) Calculate workload score
+
+            2 &lt; 2.53 –&gt; 0
 
         &#34;&#34;&#34;
 
@@ -564,8 +660,8 @@ class WorkloadScoring:
                 x_values.append(x)
 
             x_sum = round(sum(x_values), 2)
-            dispersion = round(x_sum / (num_of_intervals - 1), 2)
-            std = round(mt.sqrt(dispersion), 2)
+            var = round(x_sum / (num_of_intervals - 1), 2)
+            std = round(mt.sqrt(var), 2)
             ste = round(std / mt.sqrt(num_of_intervals), 2)
 
             left_border = int(avg_num_of_task_per_week - ste)
@@ -946,7 +1042,45 @@ So we add assignee_id to BASE_SELECT and got:</p>
 <dd>date of the last interval in schema 'y-m-d'</dd>
 </dl>
 <h2 id="notes">Notes</h2>
-<p>Algorithm explanation:</p></div>
+<p>Algorithm explanation</p>
+<p>1) Calculate cartesian product unique values in each columns</p>
+<p>Example input:</p>
+<ul>
+<li>assignee_id: [1, 2, 3]</li>
+<li>country: ['usa', 'russia']</li>
+</ul>
+<p>Example output:</p>
+<pre><code>cartesian_product = [(1, 'usa'), (1, 'russia'), (2, 'usa'), (2, 'russia'), (3, 'usa'), (3, 'russia')]
+</code></pre>
+<p>On each element of cartesian_product do 2-6</p>
+<p>2) Get slice of dataframe based on value in tuple (e.g. assignee_id - 1, country – 'usa')</p>
+<p>For example:</p>
+<pre><code>id      created     updated     assignee_id     country
+1       2017-01-01  2017-04-02  1               usa
+2       2017-01-01  2017-04-03  1               usa
+</code></pre>
+<p>3) For every interval in period count task was finished by assignee</p>
+<p>For example end date – 2017-04-28, interval – 7 days. Possible result:</p>
+<pre><code>completed = [
+    2, # 2017-04-01 - 2017-04-07
+    4, # 2017-04-08 - 2017-04-14
+    3, # 2017-04-15 - 2017-04-21
+    2  # 2017-04-22 - 2017-04-28
+]
+</code></pre>
+<p>4) Calculate mean, std, var, ste for all intervals except the last one (2017-04-22 - 2017-04-28)</p>
+<p>For completed:</p>
+<pre><code>mean – 3.00
+var  - 0.66
+std  - 0.82
+ste  – 0.47
+</code></pre>
+<p>5) Calculate confidence interval</p>
+<pre><code>confidence interval is 3.00 +- 0.47
+</code></pre>
+<p>6) Calculate workload score</p>
+<pre><code>2 &lt; 2.53 –&gt; 0
+</code></pre></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -969,8 +1103,56 @@ So we add assignee_id to BASE_SELECT and got:</p>
     Notes
     ----------
 
-    Algorithm explanation:
+    Algorithm explanation
 
+    1) Calculate cartesian product unique values in each columns
+
+    Example input:
+
+    - assignee_id: [1, 2, 3]
+    - country: [&#39;usa&#39;, &#39;russia&#39;]
+
+    Example output:
+
+        cartesian_product = [(1, &#39;usa&#39;), (1, &#39;russia&#39;), (2, &#39;usa&#39;), (2, &#39;russia&#39;), (3, &#39;usa&#39;), (3, &#39;russia&#39;)]
+
+    On each element of cartesian_product do 2-6
+
+    2) Get slice of dataframe based on value in tuple (e.g. assignee_id - 1, country – &#39;usa&#39;)
+
+    For example:
+
+        id      created     updated     assignee_id     country
+        1       2017-01-01  2017-04-02  1               usa
+        2       2017-01-01  2017-04-03  1               usa
+
+    3) For every interval in period count task was finished by assignee
+
+    For example end date – 2017-04-28, interval – 7 days. Possible result:
+
+        completed = [
+            2, # 2017-04-01 - 2017-04-07
+            4, # 2017-04-08 - 2017-04-14
+            3, # 2017-04-15 - 2017-04-21
+            2  # 2017-04-22 - 2017-04-28
+        ]
+
+    4) Calculate mean, std, var, ste for all intervals except the last one (2017-04-22 - 2017-04-28)
+
+    For completed:
+
+        mean – 3.00
+        var  - 0.66
+        std  - 0.82
+        ste  – 0.47
+
+    5) Calculate confidence interval
+
+        confidence interval is 3.00 +- 0.47
+
+    6) Calculate workload score
+
+        2 &lt; 2.53 –&gt; 0
 
     &#34;&#34;&#34;
 
@@ -1030,8 +1212,8 @@ So we add assignee_id to BASE_SELECT and got:</p>
             x_values.append(x)
 
         x_sum = round(sum(x_values), 2)
-        dispersion = round(x_sum / (num_of_intervals - 1), 2)
-        std = round(mt.sqrt(dispersion), 2)
+        var = round(x_sum / (num_of_intervals - 1), 2)
+        std = round(mt.sqrt(var), 2)
         ste = round(std / mt.sqrt(num_of_intervals), 2)
 
         left_border = int(avg_num_of_task_per_week - ste)
