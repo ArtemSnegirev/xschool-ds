@@ -11,22 +11,23 @@ Supported features:
 
 Notes
 -----
-    [!] Make sure you have **credentials** to work with GCP.
-    [!] Library uses **google-auth** to work with credentials and **pandas-gbq**.
-    [!] Library uses **dotenv** to safely store security-sensitive data.
+    [!] Make sure you have ``credentials`` to work with GCP.
+    [!] Library uses ``google-auth`` to work with credentials and ``pandas-gbq``.
+    [!] Library uses ``dotenv`` to safely store security-sensitive data.
 
 Using
 -------
-    1) create account object by passing credentials to create WorkloadScoring instance
-    2) read BigQuery table by **read_table** method passing the necessary columns to split records
-    3) calculate assignee workload score by **workload_scoring** method passing the time intervals and columns for splitting
-    4) write BigQuery table by **write_table** method passing the columns to save as your schema supposes
+    - create account object by passing credentials to create WorkloadScoring instance
+    - read BigQuery table by ``read_table`` method passing the necessary columns to split records
+    - calculate assignee workload score by ``workload_scoring`` method passing the time intervals and columns for splitting
+    - write BigQuery table by ``write_table`` method passing the columns to save as your schema supposes
 
 Example
 -------
     [!] make sure you setup your own credentials in .env in the root of repo.
 
-    See examples in **examples.py**
+    See examples in ``examples.py``
+
 
     $ python examples.py
 

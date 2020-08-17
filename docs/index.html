@@ -31,20 +31,21 @@
 - workload scoring calculation based on confidence interval
 - approaches to calculate scoring based on machine learning [in progress]</p>
 <h2 id="notes">Notes</h2>
-<pre><code>[!] Make sure you have **credentials** to work with GCP.
-[!] Library uses **google-auth** to work with credentials and **pandas-gbq**.
-[!] Library uses **dotenv** to safely store security-sensitive data.
+<pre><code>[!] Make sure you have &lt;code&gt;credentials&lt;/code&gt; to work with GCP.
+[!] Library uses ``google-auth`` to work with credentials and ``pandas-gbq``.
+[!] Library uses &lt;code&gt;dotenv&lt;/code&gt; to safely store security-sensitive data.
 </code></pre>
 <h2 id="using">Using</h2>
-<pre><code>1) create account object by passing credentials to create WorkloadScoring instance
-2) read BigQuery table by **read_table** method passing the necessary columns to split records
-3) calculate assignee workload score by **workload_scoring** method passing the time intervals and columns for splitting
-4) write BigQuery table by **write_table** method passing the columns to save as your schema supposes
+<pre><code>- create account object by passing credentials to create WorkloadScoring instance
+- read BigQuery table by &lt;code&gt;read\_table&lt;/code&gt; method passing the necessary columns to split records
+- calculate assignee workload score by &lt;code&gt;workload\_scoring&lt;/code&gt; method passing the time intervals and columns for splitting
+- write BigQuery table by &lt;code&gt;write\_table&lt;/code&gt; method passing the columns to save as your schema supposes
 </code></pre>
 <h2 id="example">Example</h2>
 <pre><code>[!] make sure you setup your own credentials in .env in the root of repo.
 
-See examples in **examples.py**
+See examples in &lt;code&gt;examples.py&lt;/code&gt;
+
 
 $ python examples.py
 </code></pre>
@@ -65,22 +66,23 @@ Supported features:
 
 Notes
 -----
-    [!] Make sure you have **credentials** to work with GCP.
-    [!] Library uses **google-auth** to work with credentials and **pandas-gbq**.
-    [!] Library uses **dotenv** to safely store security-sensitive data.
+    [!] Make sure you have ``credentials`` to work with GCP.
+    [!] Library uses ``google-auth`` to work with credentials and ``pandas-gbq``.
+    [!] Library uses ``dotenv`` to safely store security-sensitive data.
 
 Using
 -------
-    1) create account object by passing credentials to create WorkloadScoring instance
-    2) read BigQuery table by **read_table** method passing the necessary columns to split records
-    3) calculate assignee workload score by **workload_scoring** method passing the time intervals and columns for splitting
-    4) write BigQuery table by **write_table** method passing the columns to save as your schema supposes
+    - create account object by passing credentials to create WorkloadScoring instance
+    - read BigQuery table by ``read_table`` method passing the necessary columns to split records
+    - calculate assignee workload score by ``workload_scoring`` method passing the time intervals and columns for splitting
+    - write BigQuery table by ``write_table`` method passing the columns to save as your schema supposes
 
 Example
 -------
     [!] make sure you setup your own credentials in .env in the root of repo.
 
-    See examples in **examples.py**
+    See examples in ``examples.py``
+
 
     $ python examples.py
 
