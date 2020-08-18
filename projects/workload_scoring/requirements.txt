@@ -1,3 +1,4 @@
+pdoc
 numpy
 pandas
 pandas-gbq
