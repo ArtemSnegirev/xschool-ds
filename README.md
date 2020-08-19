@@ -7,4 +7,4 @@ repo structure:
   - problem research [not listed]
   - dashboard in data studio [not listed]
   - workload scoring library
-  - text classification [not listed]
+  - text classification
