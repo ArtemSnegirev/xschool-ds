@@ -30,8 +30,8 @@ def registration():
         get_data = request.get_data()
         json_params = json.loads(get_data)
 
-        sample_vec = vectorizer.transform(json_params['message']).toarray()
-        resp['category'] = model.predict(sample_vec)[0]
+        sample_vec = vectorizer.transform([json_params['message']]).toarray()
+        resp['category'] = int(model.predict(sample_vec)[0])
 
     except Exception as e:
         print(e)
