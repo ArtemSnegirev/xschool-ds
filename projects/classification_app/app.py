@@ -1,67 +1,47 @@
-import lightgbm as lgb
-from sklearn.feature_extraction.text import TfidfVectorizer
-import numpy as np
-import pandas as pd
 import pickle
-
-
 
 from flask import Flask
 from flask import request
-import requests
 from flask import jsonify
 
 import os
 import json
-from ast import literal_eval
-import traceback
 
 application = Flask(__name__)
 
-
-#загружаем модели из файла
-vec = pickle.load(open("./models/tfidf.pickle", "rb"))
-model = lgb.Booster(model_file='./models/lgbm_model.txt')
+vectorizer = pickle.load(open("./models/multiclf_tfidf.pickle", "rb"))
+model = pickle.load(open("./models/multiclf_model.pickle", "rb"))
 
 
-# тестовый вывод
-@application.route("/")  
+@application.route("/")
 def hello():
-    resp = {'message':"Hello World!"}
-    
+    resp = {'message': "Hello World!"}
+
     response = jsonify(resp)
-    
+
     return response
 
-# предикт категории
-@application.route("/categoryPrediction" , methods=['GET', 'POST'])  
+
+@application.route("/category_prediction", methods=['GET', 'POST'])
 def registration():
-    resp = {'message':'ok'
-           ,'category': -1
-           }
+    resp = {'message': 'ok', 'category': -1}
 
     try:
-        getData = request.get_data()
-        json_params = json.loads(getData) 
-        
-        #напишите прогноз и верните его в ответе в параметре 'prediction'
+        get_data = request.get_data()
+        json_params = json.loads(get_data)
 
+        sample_vec = vectorizer.transform(json_params['message']).toarray()
+        resp['category'] = model.predict(sample_vec)[0]
 
-
-        
-    except Exception as e: 
+    except Exception as e:
         print(e)
         resp['message'] = e
-      
+
     response = jsonify(resp)
-    
+
     return response
 
-        
 
 if __name__ == "__main__":
     port = int(os.getenv('PORT', 5000))
-    application.run(debug=False, port=port, host='0.0.0.0' , threaded=True)
-
-
-
+    application.run(debug=False, port=port, host='0.0.0.0', threaded=True)
