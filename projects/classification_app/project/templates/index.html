@@ -8,17 +8,11 @@
   <p>[[ greeting ]]</p>
 </div>
 <script>
-  // Full spec-compliant TodoMVC with localStorage persistence
-  // and hash-based routing in ~120 effective lines of JavaScript.
-
-  // localStorage persistence
-  // app Vue instance
   const app = new Vue({
     el: '#app',
     delimiters: ['[[', ']]'],
-    // app initial state
     data: {
-      greeting: "all"
+      greeting: "Hello Vue"
     },
   });
 </script>

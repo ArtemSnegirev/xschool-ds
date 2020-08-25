@@ -1,1 +1,1 @@
-from . import message_categorizer
+from . import message_categorization

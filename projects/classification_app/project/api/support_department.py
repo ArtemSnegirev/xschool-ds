@@ -1,7 +1,7 @@
 import json
 
 from flask import jsonify, request, current_app
-from ..models.message_categorizer import MessageCategorizer
+from ..ml.message_categorization import MessageCategorizer
 
 from . import api
 
