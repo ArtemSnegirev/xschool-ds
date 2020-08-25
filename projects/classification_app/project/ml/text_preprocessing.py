@@ -63,10 +63,11 @@ class TextPreprocessor:
     
     @staticmethod
     def clean_number(text):
-        text = re.sub(r'(\d+)([a-zA-Z])', ' \g<1> \g<2> ', text)
-        text = re.sub(r'(\d+) (th|st|nd|rd) ', ' \g<1>\g<2> ', text)
-        text = re.sub(r'(\d+),(\d+)', ' \g<1>\g<2> ', text)
-        text = re.sub('([A-Za-z]*[\d]+[\w]*|[\d]+[A-Za-z]+[\w]*)', ' ##### ', text)
+        text = re.sub(r'(\d+)([a-zA-Z])', r' \g<1> \g<2> ', text)
+        text = re.sub(r'(\d+) (th|st|nd|rd) ', r' \g<1>\g<2> ', text)
+        text = re.sub(r'(\d+),(\d+)', r' \g<1>\g<2> ', text)
+        
+        text = re.sub(r'([A-Za-z]*[\d]+[\w]*|[\d]+[A-Za-z]+[\w]*)', ' ##### ', text)
         text = re.sub('[0-9]{5,}', ' ##### ', text)
         text = re.sub('[0-9]{4}', ' #### ', text)
         text = re.sub('[0-9]{3}', ' ### ', text)
@@ -93,7 +94,7 @@ class TextPreprocessor:
             text = text.replace(space, ' ')
         
         text = text.strip()
-        text = re.sub('\s+', ' ', text)
+        text = re.sub(r'\s+', ' ', text)
         
         return text
 
