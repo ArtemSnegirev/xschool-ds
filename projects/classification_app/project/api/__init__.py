@@ -6,4 +6,4 @@ api = Blueprint('api', __name__)
 
 # you should import new routes here
 
-from ...app.api import support_department
+from ...project.api import support_department

@@ -1,9 +1,9 @@
 import json
 
 from flask import jsonify, request, current_app
-from ...app.models.message_categorizer import MessageCategorizer
+from ...project.models.message_categorizer import MessageCategorizer
 
-from ...app.api import api
+from ...project.api import api
 
 # TODO create time-depend key-accessible model storage as util
 
