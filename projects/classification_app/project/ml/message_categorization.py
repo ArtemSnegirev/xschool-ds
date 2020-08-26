@@ -1,23 +1,17 @@
-import json
-import pickle
+import fasttext
 
-import sklearn
-import textblob
-
+from .text_preprocessing import TextPreprocessor
 
 class MessageCategorizer:
-    def __init__(self):
-        # TODO create project config and default path for models
-        # self.vectorizer = pickle.load(open("storage/message_categorizer/.pickle", "rb"))
-        # self.model = pickle.load(open("storage/message_categorizer/.pickle", "rb"))
-        self.model = None
+    def __init__(self, preprocessing_pipe=None):
+        # load model (just 2mb)
+        self.model = fasttext.load_model('project/ml/fasttext.ftz')
 
-    def preprocessing(self, x):
-        pass
+        # create text preprocessor with pipeline config
+        self.preprocessor = TextPreprocessor(preprocessing_pipe)
 
     def predict_proba(self, x):
-        if 'predict_proba' in dir(self.model):
-            return self.model.predict_proba(x)
+        x = self.preprocessor.preprocess(x)
+        return self.model.predict(x, k=3)[1]
 
-    def predict(self, x):
-        return self.model.predict(x)
+

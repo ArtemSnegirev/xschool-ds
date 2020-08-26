@@ -21,7 +21,11 @@ def categorize_message():
         raw_data = request.get_data()
         data = json.loads(raw_data)
 
-        response['category'] = model_mc.predict_proba(data['message'])
+        if 'user_message' in data:
+            response['category'] = model_mc.predict_proba(data['user_message'])
+        else:
+            status = 404
+            response['message'] = 'expected "user_message" field'
 
     except Exception as e:
         current_app.logger.info(f'exception: {e}')
