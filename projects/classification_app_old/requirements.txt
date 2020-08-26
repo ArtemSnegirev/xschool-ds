@@ -3,7 +3,7 @@ Flask
 sklearn
 gunicorn==19.6.0
 psycopg2==2.8.1
-requests==2.9.1
+requests==2.20.0
 Flask-Cors==3.0.8
 langdetect
 textblob
