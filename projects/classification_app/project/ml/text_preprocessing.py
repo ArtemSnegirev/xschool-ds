@@ -29,14 +29,14 @@ class TextPreprocessor:
             if step in preprocessing_mapper:
                 preprocess_method = preprocessing_mapper[step]
                 text = preprocess_method(text)
-        
+
         return text
-    
+
     @staticmethod
     def detect_anomaly(text):
         # TODO
         pass
-    
+
     @staticmethod
     def to_lower(text):
         return text.lower()
@@ -52,31 +52,33 @@ class TextPreprocessor:
 
         if lang == 'en':
             return text
-        
+
+        print(lang)
+
         try:
             blob = TextBlob(text)
-            translated = blob.translate()
+            translated = str(blob.translate())
         except:
-            return None
+            return text
 
         return translated
-    
+
     @staticmethod
     def clean_number(text):
         text = re.sub(r'(\d+)([a-zA-Z])', r' \g<1> \g<2> ', text)
         text = re.sub(r'(\d+) (th|st|nd|rd) ', r' \g<1>\g<2> ', text)
         text = re.sub(r'(\d+),(\d+)', r' \g<1>\g<2> ', text)
-        
+
         text = re.sub(r'([A-Za-z]*[\d]+[\w]*|[\d]+[A-Za-z]+[\w]*)', ' ##### ', text)
         text = re.sub('[0-9]{5,}', ' ##### ', text)
         text = re.sub('[0-9]{4}', ' #### ', text)
         text = re.sub('[0-9]{3}', ' ### ', text)
         text = re.sub('[0-9]{2}', ' ## ', text)
-    
+
         return text
-    
+
     @staticmethod
-    def remove_punctuations(text): 
+    def remove_punctuations(text):
         return ' '.join([t for t in text.split() if t not in string.punctuation])
 
     @staticmethod
@@ -84,30 +86,30 @@ class TextPreprocessor:
         sw = utils.stopwords
 
         if len(sw) == 0:
-            return text 
-        
+            return text
+
         return ' '.join([t for t in text.split() if not t in sw])
 
     @staticmethod
     def remove_spaces(text):
         for space in utils.spaces:
             text = text.replace(space, ' ')
-        
+
         text = text.strip()
         text = re.sub(r'\s+', ' ', text)
-        
+
         return text
 
     @staticmethod
     def correct_spelling(text, confidence_threshold=0.7):
         tokens = text.split()
-        
-        for i, token in enumerate(tokens):      
+
+        for i, token in enumerate(tokens):
             r, confidence = Word(token).spellcheck()[0]
-            
+
             if confidence > confidence_threshold:
                 tokens[i] = r
-        
+
         return ' '.join(tokens).strip()
 
     @staticmethod
@@ -121,7 +123,7 @@ class TextPreprocessor:
 
         for p in mapping:
             text = text.replace(p, mapping[p])
-        
+
         return text
 
     @staticmethod
@@ -130,7 +132,7 @@ class TextPreprocessor:
 
         for p in special_chars:
             text = text.replace(p, f' {p} ')
-        
+
         return text
 
 # TODO write mapper generator
