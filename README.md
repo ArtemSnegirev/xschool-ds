@@ -6,5 +6,7 @@ repo structure:
 - projects: homework tasks
   - problem research [not listed]
   - dashboard in data studio [not listed]
-  - workload scoring library
-  - text classification
+  - workload scoring library with auto docs
+  - binary/multiclass text classification
+  - flask app as multiclass text classification service 
+  
