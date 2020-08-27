@@ -28,10 +28,8 @@ class TextPreprocessor:
     def preprocess(self, text):
         for step in self.processing_pipe:
             if step in preprocessing_mapper:
-                print(step)
                 preprocess_method = preprocessing_mapper[step]
                 text = preprocess_method(text)
-                print(text)
 
         return text
 
@@ -55,9 +53,6 @@ class TextPreprocessor:
 
         if lang == 'en':
             return text
-
-        print(1)
-        print(lang)
 
         try:
             blob = TextBlob(text)

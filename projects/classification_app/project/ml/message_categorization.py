@@ -18,13 +18,10 @@ class MessageCategorizer:
         self.preprocessor = TextPreprocessor(preprocessing_pipe)
 
     def predict_proba(self, x):
-        print(1, x)
         try:
             x = self.preprocessor.preprocess(x)
         except Exception as e:
             print(e)
-
-        print(2, x)
 
         pred = self.model.predict(x, k=3)
 
