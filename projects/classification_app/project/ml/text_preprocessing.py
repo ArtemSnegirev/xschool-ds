@@ -31,6 +31,7 @@ class TextPreprocessor:
                 print(step)
                 preprocess_method = preprocessing_mapper[step]
                 text = preprocess_method(text)
+                print(text)
 
         return text
 
