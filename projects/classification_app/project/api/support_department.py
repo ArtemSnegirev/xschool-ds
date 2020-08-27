@@ -10,7 +10,7 @@ model_mc = MessageCategorizer()
 
 @api.route('/support_department/categorize_message', methods=['POST'])
 def categorize_message():
-    """Method for calculation workload scoring based on historical data
+    """Method to predict category probability of input-message, where prediction = [afs, other, ps]
 
         Parameters
         ----------
