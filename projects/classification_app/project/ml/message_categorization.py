@@ -80,4 +80,9 @@ class MessageCategorizer:
             idx = self.label_mapper[label]
             formatted_pred[idx] = pred[1][i]
 
+        # # little hack
+        max_id = formatted_pred.index(max(formatted_pred))
+        for i, x in enumerate(formatted_pred):
+            formatted_pred[i] = 1.0 if i == max_id else 0.0
+
         return formatted_pred

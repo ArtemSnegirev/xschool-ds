@@ -80,9 +80,6 @@ class TextPreprocessor:
             if step in preprocessing_mapper:
                 preprocess_method = preprocessing_mapper[step]
                 text = preprocess_method(text)
-                print(step, text)
-
-
 
         return text
 
