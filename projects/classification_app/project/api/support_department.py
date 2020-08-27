@@ -14,7 +14,7 @@ model_mc = MessageCategorizer()
 def categorize_message():
     current_app.logger.info('request: categorize user message')
 
-    response = {'message': 'ok', 'category': -1}
+    response = {'message': 'ok', 'prediction': -1}
     status = 200
 
     try:
@@ -24,7 +24,7 @@ def categorize_message():
             data = request.get_json(force=True)
 
             if 'user_message' in data:
-                response['category'] = model_mc.predict_proba(data['user_message'])
+                response['prediction'] = model_mc.predict_proba(data['user_message'])
             else:
                 status = 404
                 response['message'] = 'expected "user_message" field'

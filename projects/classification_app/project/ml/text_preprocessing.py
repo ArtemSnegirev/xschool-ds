@@ -20,6 +20,7 @@ default_preprocessing_pipe = [
     'remove_spaces'
 ]
 
+
 class TextPreprocessor:
     def __init__(self, pipeline=None):
         self.processing_pipe = default_preprocessing_pipe if pipeline is None else pipeline
@@ -27,6 +28,7 @@ class TextPreprocessor:
     def preprocess(self, text):
         for step in self.processing_pipe:
             if step in preprocessing_mapper:
+                print(step)
                 preprocess_method = preprocessing_mapper[step]
                 text = preprocess_method(text)
 
@@ -53,6 +55,7 @@ class TextPreprocessor:
         if lang == 'en':
             return text
 
+        print(1)
         print(lang)
 
         try:
@@ -135,6 +138,7 @@ class TextPreprocessor:
             text = text.replace(p, f' {p} ')
 
         return text
+
 
 # TODO write mapper generator
 preprocessing_mapper = {
