@@ -1,5 +1,4 @@
 import re
-import string
 
 from langdetect import detect
 from textblob import Word, TextBlob
