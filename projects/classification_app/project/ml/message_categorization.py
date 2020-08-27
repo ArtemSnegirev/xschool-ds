@@ -83,7 +83,7 @@ class MessageCategorizer:
         # little hack
         max_prob = max(formatted_pred)
 
-        if max_prob > 0.7:
+        if max_prob > 0.5:
             max_id = formatted_pred.index(max_prob)
             for i, x in enumerate(formatted_pred):
                 formatted_pred[i] = 1.0 if i == max_id else 0.0
