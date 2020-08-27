@@ -58,7 +58,8 @@ class TextPreprocessor:
         try:
             blob = TextBlob(text)
             translated = str(blob.translate())
-        except:
+        except Exception as e:
+            print(e)
             return text
 
         return translated
