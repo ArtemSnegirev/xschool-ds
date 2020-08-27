@@ -82,7 +82,7 @@ class WorkloadScoring:
         self.credentials = Credentials.from_service_account_info(credentials)
 
     def workload_scoring(self, columns_list, num_of_all_days=28, num_of_interval_days=7, end_date='2017-04-01'):
-        """Class methods are similar to regular functions.
+        """Method for calculation workload scoring based on historical data
 
         Parameters
         ----------
