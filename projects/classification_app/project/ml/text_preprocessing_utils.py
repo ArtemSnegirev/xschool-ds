@@ -1,3 +1,8 @@
+"""
+Module contains different resources for text preprocessing
+like text to text maps, stopwords, special chars and so on
+"""
+
 contraction_mapping = {
     "ain't": "are not",
     "aren't": "are not",
