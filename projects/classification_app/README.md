@@ -77,5 +77,5 @@ You can go ahead and run the application with a simple command:
 ```bash
 # ./projects
 
-python -m classification_app
+python classification_app/app.py
 ```
